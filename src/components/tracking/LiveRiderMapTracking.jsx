@@ -140,43 +140,149 @@ export function LiveRiderMapTracking({
   return (
     <div className="bg-white rounded-3xl border border-gray-200 overflow-hidden shadow-sm space-y-0 animate-fade-in">
       {/* Top Banner: Status & ETA */}
-      <div className="bg-gray-900 text-white p-4 sm:p-5 flex flex-wrap items-center justify-between gap-3">
-        <div className="flex items-center space-x-3">
-          <div className="relative flex items-center justify-center">
-            <span className="animate-ping absolute inline-flex h-9 w-9 rounded-full bg-amber-400 opacity-60" />
-            <div className="relative w-9 h-9 rounded-full bg-amber-500 text-gray-950 flex items-center justify-center shadow">
-              <Bike size={20} className="animate-bounce" />
+      <div
+        style={{
+          background: '#FFFFFF',
+          borderBottom: '1px solid #E2E8F0',
+          padding: '16px 20px',
+          display: 'flex',
+          flexWrap: 'wrap',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          gap: '14px',
+          width: '100%',
+          boxSizing: 'border-box'
+        }}
+      >
+        <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+          <div
+            style={{
+              position: 'relative',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              flexShrink: 0
+            }}
+          >
+            <span
+              className="animate-ping"
+              style={{
+                position: 'absolute',
+                width: '42px',
+                height: '42px',
+                borderRadius: '50%',
+                background: '#FF6B00',
+                opacity: 0.25
+              }}
+            />
+            <div
+              style={{
+                position: 'relative',
+                width: '44px',
+                height: '44px',
+                borderRadius: '50%',
+                background: '#FF6B00',
+                color: '#FFFFFF',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                boxShadow: '0 4px 12px rgba(255, 107, 0, 0.3)'
+              }}
+            >
+              <Bike size={22} color="#FFFFFF" />
             </div>
+            <span
+              style={{
+                position: 'absolute',
+                bottom: 0,
+                right: 0,
+                width: '12px',
+                height: '12px',
+                borderRadius: '50%',
+                background: '#10B981',
+                border: '2px solid #FFFFFF'
+              }}
+            />
           </div>
+
           <div>
-            <div className="flex items-center gap-2">
-              <span className="text-xs font-extrabold uppercase tracking-wider text-amber-400 flex items-center gap-1.5">
-                <span className="h-2 w-2 rounded-full bg-emerald-400 animate-ping" />
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+              <span
+                style={{
+                  fontSize: '11px',
+                  fontWeight: '800',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.5px',
+                  color: '#FF6B00',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px'
+                }}
+              >
+                <span
+                  style={{
+                    width: '8px',
+                    height: '8px',
+                    borderRadius: '50%',
+                    background: '#10B981',
+                    display: 'inline-block'
+                  }}
+                />
                 Live Courier Radar
               </span>
-              <span className="text-[10px] bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded-full font-mono border border-emerald-500/30">
+              <span
+                style={{
+                  fontSize: '10px',
+                  background: '#DCFCE7',
+                  color: '#166534',
+                  padding: '2px 8px',
+                  borderRadius: '9999px',
+                  fontFamily: 'monospace',
+                  fontWeight: '800',
+                  border: '1px solid #BBF7D0'
+                }}
+              >
                 ● LIVE GPS 4G
               </span>
             </div>
-            <h3 className="text-base sm:text-lg font-bold text-white mt-0.5">
+
+            <h3 style={{ fontSize: '18px', fontWeight: '800', color: '#0F172A', marginTop: '3px' }}>
               {progress >= 100 ? (
-                <span className="text-emerald-400 font-extrabold">🎉 Courier Arrived at Destination!</span>
+                <span style={{ color: '#059669', fontWeight: '800' }}>🎉 Courier Arrived at Destination!</span>
               ) : (
-                <span>{riderName} is en route</span>
+                <span style={{ color: '#0F172A' }}>{riderName} is en route</span>
               )}
             </h3>
           </div>
         </div>
 
         {/* Dynamic Telemetry Stats & Mode Toggle */}
-        <div className="flex items-center gap-2.5">
-          <div className="bg-gray-800/90 border border-gray-700 rounded-2xl px-3.5 py-2 text-right">
-            <span className="text-[10px] text-gray-400 uppercase font-bold block">Arrival Window</span>
-            <span className="text-sm sm:text-base font-extrabold text-amber-400">
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
+          <div
+            style={{
+              background: '#F0FDF4',
+              border: '1.5px solid #86EFAC',
+              borderRadius: '14px',
+              padding: '8px 16px',
+              textAlign: 'right'
+            }}
+          >
+            <span
+              style={{
+                fontSize: '10px',
+                color: '#166534',
+                textTransform: 'uppercase',
+                fontWeight: '800',
+                display: 'block'
+              }}
+            >
+              Arrival Window
+            </span>
+            <span style={{ fontSize: '15px', fontWeight: '800', color: '#15803D' }}>
               {progress >= 100 ? (
-                <span className="text-emerald-400">Delivered</span>
+                <span style={{ color: '#059669' }}>Delivered</span>
               ) : remainingMeters < 100 ? (
-                <span>Arriving at Gate!</span>
+                <span style={{ color: '#FF6B00' }}>Arriving at Gate!</span>
               ) : (
                 <span>~{dynamicEtaMins} mins ({remainingKm} km)</span>
               )}
@@ -187,21 +293,51 @@ export function LiveRiderMapTracking({
           <button
             type="button"
             onClick={() => setViewMode((m) => (m === 'radar' ? 'google' : 'radar'))}
-            className="p-2.5 rounded-xl bg-gray-800 hover:bg-gray-700 text-gray-300 border border-gray-700 transition flex items-center gap-1 text-xs font-bold"
+            style={{
+              padding: '10px 14px',
+              borderRadius: '12px',
+              background: '#FFFFFF',
+              color: '#0F172A',
+              border: '1.5px solid #CBD5E1',
+              boxShadow: '0 1px 3px rgba(0,0,0,0.06)',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px',
+              fontSize: '12px',
+              fontWeight: '800',
+              cursor: 'pointer'
+            }}
             title="Switch map view"
           >
-            <Layers size={15} className="text-amber-400" />
-            <span className="hidden sm:inline">{viewMode === 'radar' ? 'Satellite Map' : 'Radar Map'}</span>
+            <Layers size={15} color="#FF6B00" />
+            <span style={{ fontWeight: '800', color: '#0F172A' }}>
+              {viewMode === 'radar' ? 'Satellite Map' : 'Radar Map'}
+            </span>
           </button>
 
           <button
             type="button"
             onClick={handleManualRefresh}
             disabled={isRefreshing}
-            className="p-2.5 rounded-xl bg-gray-800 hover:bg-gray-700 text-gray-300 border border-gray-700 transition"
+            style={{
+              padding: '10px',
+              borderRadius: '12px',
+              background: '#FFFFFF',
+              color: '#0F172A',
+              border: '1.5px solid #CBD5E1',
+              boxShadow: '0 1px 3px rgba(0,0,0,0.06)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              cursor: isRefreshing ? 'not-allowed' : 'pointer'
+            }}
             title="Fast-forward GPS telemetry"
           >
-            <RefreshCw size={15} className={isRefreshing ? 'animate-spin text-amber-400' : ''} />
+            <RefreshCw
+              size={15}
+              color={isRefreshing ? '#FF6B00' : '#475569'}
+              className={isRefreshing ? 'animate-spin' : ''}
+            />
           </button>
         </div>
       </div>
@@ -308,16 +444,35 @@ export function LiveRiderMapTracking({
                 <span className="animate-pulse absolute inline-flex h-10 w-10 rounded-full bg-amber-500 opacity-40" />
 
                 <div
-                  className="w-10 h-10 rounded-full bg-gradient-to-r from-amber-500 to-amber-600 text-gray-950 font-black flex items-center justify-center shadow-2xl border-2 border-white transform transition-transform duration-500"
-                  style={{ transform: `rotate(${currentRiderState.angle}deg)` }}
+                  className="w-10 h-10 rounded-full text-white font-black flex items-center justify-center shadow-2xl border-2 border-white transform transition-transform duration-500"
+                  style={{
+                    background: '#FF6B00',
+                    transform: `rotate(${currentRiderState.angle}deg)`
+                  }}
                 >
-                  <Bike size={20} className="text-gray-950" />
+                  <Bike size={20} color="#FFFFFF" />
                 </div>
               </div>
 
               {/* Rider Live Speech Bubble HUD */}
-              <div className="mt-1 px-2.5 py-1 rounded-full bg-gray-900/95 text-white text-[11px] font-bold shadow-xl border border-amber-500/40 flex items-center gap-1.5 whitespace-nowrap">
-                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-ping" />
+              <div
+                style={{
+                  marginTop: '4px',
+                  padding: '4px 10px',
+                  borderRadius: '9999px',
+                  background: '#FFFFFF',
+                  color: '#0F172A',
+                  fontSize: '11px',
+                  fontWeight: '800',
+                  boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+                  border: '1.5px solid #FF6B00',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  whiteSpace: 'nowrap'
+                }}
+              >
+                <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#10B981', display: 'inline-block' }} />
                 <span>{riderName} ({speedKmh} km/h)</span>
               </div>
             </div>
@@ -343,9 +498,9 @@ export function LiveRiderMapTracking({
         </div>
 
         {/* Bottom Corner HUD */}
-        <div className="absolute bottom-3 left-3 bg-gray-900/90 backdrop-blur-md text-white rounded-xl px-3 py-1.5 border border-gray-700 text-[11px] font-semibold flex items-center gap-2 shadow-sm pointer-events-auto z-30">
-          <span className="h-2 w-2 rounded-full bg-emerald-400 animate-ping" />
-          <span>Live Telematics • TVS Neo Courier Bike</span>
+        <div className="absolute bottom-3 left-3 bg-white/95 backdrop-blur-md text-gray-900 rounded-xl px-3 py-1.5 border border-gray-200 text-[11px] font-bold flex items-center gap-2 shadow-md pointer-events-auto z-30">
+          <span className="h-2 w-2 rounded-full bg-emerald-500 animate-ping" />
+          <span>Live Telematics &bull; Courier Delivery Bike</span>
         </div>
 
         {/* External Google Maps Button */}
@@ -353,7 +508,7 @@ export function LiveRiderMapTracking({
           href={`https://www.google.com/maps/dir/?api=1&origin=${currentRiderState.lat},${currentRiderState.lng}&destination=${waypoints[waypoints.length - 1].lat},${waypoints[waypoints.length - 1].lng}&travelmode=driving`}
           target="_blank"
           rel="noopener noreferrer"
-          className="absolute bottom-3 right-3 px-3.5 py-2 bg-amber-500 hover:bg-amber-600 text-gray-950 text-xs font-extrabold rounded-xl shadow-lg flex items-center gap-1.5 transition border border-amber-400 pointer-events-auto z-30"
+          className="absolute bottom-3 right-3 px-3.5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-extrabold rounded-xl shadow-lg flex items-center gap-1.5 transition border border-emerald-500 pointer-events-auto z-30 no-underline"
         >
           <span>Google Maps App</span>
           <ExternalLink size={13} />
@@ -377,10 +532,15 @@ export function LiveRiderMapTracking({
             </span>
           </div>
 
-          <div className="w-full bg-gray-100 rounded-full h-3 overflow-hidden border border-gray-200">
+          <div style={{ width: '100%', background: '#F1F5F9', borderRadius: '9999px', height: '12px', overflow: 'hidden', border: '1px solid #E2E8F0' }}>
             <div
-              className="bg-gradient-to-r from-amber-500 via-amber-400 to-emerald-500 h-full rounded-full transition-all duration-700 ease-out"
-              style={{ width: `${progress}%` }}
+              style={{
+                width: `${progress}%`,
+                background: 'linear-gradient(90deg, #FF6B00, #F59E0B, #10B981)',
+                height: '100%',
+                borderRadius: '9999px',
+                transition: 'all 0.7s ease-out'
+              }}
             />
           </div>
         </div>

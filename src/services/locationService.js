@@ -3,117 +3,82 @@
 
 export const ALL_LOCATIONS_OPTION = {
   id: 'loc-all',
-  name: 'All Locations (Ibadan)',
+  name: 'All Nearby Hubs',
   shortName: 'All Areas',
-  area: 'City-wide',
+  area: 'Nearby',
   lat: 7.3980,
   lng: 3.8850,
-  description: 'Showcase items across all stores and markets in Ibadan'
+  description: 'Showcase items across all nearby stores and merchant hubs'
 };
 
 export const POPULAR_LOCATIONS = [
   ALL_LOCATIONS_OPTION,
   {
-    id: 'loc-ringroad',
-    name: 'Ring Road, Ibadan',
-    shortName: 'Ring Road',
-    area: 'Ibadan South West',
-    lat: 7.3582,
-    lng: 3.8643,
-    description: 'Mobil, Palms Mall, Adeoyo Hospital axis'
-  },
-  {
-    id: 'loc-bodija',
-    name: 'Bodija Estate & Market',
-    shortName: 'Bodija',
-    area: 'Ibadan North',
-    lat: 7.4350,
-    lng: 3.9050,
-    description: 'Bodija Market, Secretariat, Housing Estate'
-  },
-  {
-    id: 'loc-dugbe',
-    name: 'Dugbe Commercial Central',
-    shortName: 'Dugbe',
-    area: 'Central Ibadan',
+    id: 'loc-central',
+    name: 'Central Merchant Hub',
+    shortName: 'Central District',
+    area: 'Commercial Central',
     lat: 7.3872,
     lng: 3.8824,
-    description: 'Cocoa House, Post Office, Mall axis'
+    description: 'Central business, retail stores & dining hub'
   },
   {
-    id: 'loc-ui',
-    name: 'UI / Samonda / Agbowo',
-    shortName: 'UI / Samonda',
-    area: 'Ibadan North',
-    lat: 7.4485,
-    lng: 3.8992,
-    description: 'University of Ibadan, The Polytechnic, Aerodrome'
+    id: 'loc-express',
+    name: 'Express Delivery Terminal',
+    shortName: 'Express Terminal',
+    area: 'Commercial Axis',
+    lat: 7.3582,
+    lng: 3.8643,
+    description: 'Retail stores, shopping & rapid logistics hub'
   },
   {
-    id: 'loc-jericho',
-    name: 'Jericho GRA',
-    shortName: 'Jericho',
-    area: 'Ibadan North West',
+    id: 'loc-produce',
+    name: 'Fresh Market & Produce District',
+    shortName: 'Market District',
+    area: 'Open Market Hub',
+    lat: 7.4350,
+    lng: 3.9050,
+    description: 'Fresh farm produce & open market vendors'
+  },
+  {
+    id: 'loc-metro',
+    name: 'Metro Commercial Park',
+    shortName: 'Metro Park',
+    area: 'Metro Area',
     lat: 7.3980,
     lng: 3.8590,
-    description: 'Jericho Nursing Home, Golf Club, Onireke'
-  },
-  {
-    id: 'loc-oluyole',
-    name: 'Oluyole Estate',
-    shortName: 'Oluyole',
-    area: 'Ibadan South West',
-    lat: 7.3510,
-    lng: 3.8540,
-    description: 'Industrial Estate, 77 Hotel, Ring Road link'
-  },
-  {
-    id: 'loc-challenge',
-    name: 'Challenge / Molete',
-    shortName: 'Challenge',
-    area: 'Ibadan South',
-    lat: 7.3450,
-    lng: 3.8760,
-    description: 'Toll Gate, Felele, Express link'
-  },
-  {
-    id: 'loc-akobo',
-    name: 'Akobo / Basorun',
-    shortName: 'Akobo',
-    area: 'Ibadan North East',
-    lat: 7.4260,
-    lng: 3.9310,
-    description: 'General Gas, Oju Irin, Basorun Market'
-  },
-  {
-    id: 'loc-iworoad',
-    name: 'Iwo Road Interchange',
-    shortName: 'Iwo Road',
-    area: 'Ibadan East',
-    lat: 7.4110,
-    lng: 3.9390,
-    description: 'Expressway interchange, bus terminals'
-  },
-  {
-    id: 'loc-mokola',
-    name: 'Mokola Roundabout',
-    shortName: 'Mokola',
-    area: 'Ibadan Central',
-    lat: 7.4080,
-    lng: 3.8860,
-    description: 'Mokola flyover, cultural centre'
+    description: 'Boutique stores & residential community'
   }
 ];
 
-const DEFAULT_LOCATION = POPULAR_LOCATIONS[1]; // Ring Road
+const DEFAULT_LOCATION = {
+  id: 'loc-default',
+  name: 'Current Area',
+  shortName: 'Near Me',
+  area: 'Local Area',
+  lat: 7.3872,
+  lng: 3.8824,
+  isGPS: false,
+  description: 'Auto-detecting your device location'
+};
 
 const LOCATION_STORAGE_KEY = 'gada_customer_location';
 const LOCATION_AUTO_REQUESTED_KEY = 'gada_gps_auto_requested';
 
+const VENDOR_OFFSETS = [
+  { dLat: 0.0048, dLng: 0.0035, hubSuffix: 'Central Store Hub' },
+  { dLat: -0.0062, dLng: 0.0051, hubSuffix: 'Market Terminal' },
+  { dLat: 0.0095, dLng: -0.0072, hubSuffix: 'Express Store Hub' },
+  { dLat: -0.0118, dLng: -0.0094, hubSuffix: 'Commercial District' },
+  { dLat: 0.0152, dLng: 0.0115, hubSuffix: 'Neighborhood Kitchen' },
+  { dLat: -0.0175, dLng: 0.0142, hubSuffix: 'Grocery Terminal' },
+  { dLat: 0.0210, dLng: -0.0160, hubSuffix: 'Boutique Store Hub' }
+];
+
 export const locationService = {
   // Great-circle Haversine formula (km)
   getDistanceKm(lat1, lon1, lat2, lon2) {
-    if (!lat1 || !lon1 || !lat2 || !lon2) return 1.5;
+    if (!lat1 || !lon1 || !lat2 || !lon2) return 1.2;
     const R = 6371; // Earth's radius in km
     const dLat = this.deg2rad(lat2 - lat1);
     const dLon = this.deg2rad(lon2 - lon1);
@@ -144,7 +109,7 @@ export const locationService = {
     const baseFee = 450;
     const perKm = 140;
     const raw = baseFee + (distanceKm * perKm);
-    return Math.round(raw / 50) * 50; // rounded to nearest 50 Naira
+    return Math.round(raw / 50) * 50;
   },
 
   // Generates interactive Google Map embed URL
@@ -193,14 +158,17 @@ export const locationService = {
       if (res.ok) {
         const data = await res.json();
         const road = data.address?.road || data.address?.suburb || data.address?.neighbourhood || '';
-        const city = data.address?.city || data.address?.town || data.address?.state || 'Ibadan';
-        if (road) {
+        const city = data.address?.city || data.address?.town || data.address?.municipality || data.address?.state || '';
+        if (road && city) {
           return `${road}, ${city}`;
         }
-        return data.display_name.split(',').slice(0, 3).join(', ');
+        if (road || city) {
+          return road || city;
+        }
+        return data.display_name?.split(',').slice(0, 2).join(', ') || null;
       }
     } catch {
-      // fallback to closest hub if network reverse geocoding is unavailable
+      // fallback
     }
     return null;
   },
@@ -217,42 +185,33 @@ export const locationService = {
         async (position) => {
           const userLat = position.coords.latitude;
           const userLng = position.coords.longitude;
-          const accuracy = Math.round(position.coords.accuracy);
+          const accuracy = Math.round(position.coords.accuracy || 10);
 
-          // Find closest known popular hub for friendly region label
-          let closestHub = POPULAR_LOCATIONS[1];
-          let minDistance = Infinity;
+          let resolvedName = `Device Location (${userLat.toFixed(3)}, ${userLng.toFixed(3)})`;
+          let shortName = `My Location`;
+          let areaName = `Current Area`;
 
-          POPULAR_LOCATIONS.forEach((hub) => {
-            if (hub.id === 'loc-all') return;
-            const dist = locationService.getDistanceKm(userLat, userLng, hub.lat, hub.lng);
-            if (dist < minDistance) {
-              minDistance = dist;
-              closestHub = hub;
-            }
-          });
-
-          // Attempt to get exact street name from reverse geocoder
-          let resolvedName = `GPS Location near ${closestHub.name}`;
           try {
             const street = await locationService.reverseGeocode(userLat, userLng);
             if (street) {
               resolvedName = street;
+              shortName = street.split(',')[0].trim();
+              areaName = street.split(',')[1]?.trim() || 'Local Area';
             }
-          } catch {
-            // Keep fallback
+          } catch (e) {
+            console.warn('Reverse geocoding warning:', e);
           }
 
           const detected = {
             id: 'loc-gps',
             name: resolvedName,
-            shortName: closestHub.shortName || 'GPS Location',
-            area: closestHub.area || 'Current Location',
+            shortName: shortName,
+            area: areaName,
             lat: userLat,
             lng: userLng,
             isGPS: true,
             accuracy: accuracy,
-            description: `Accurate to within ${accuracy} meters via Google Maps/GPS`
+            description: `Accurate to within ${accuracy} meters via Device GPS`
           };
 
           locationService.setCurrentLocation(detected);
@@ -263,7 +222,7 @@ export const locationService = {
           locationService.setAutoRequestedGPS();
           reject(error);
         },
-        { enableHighAccuracy: true, timeout: 10000, maximumAge: 30000 }
+        { enableHighAccuracy: true, timeout: 12000, maximumAge: 30000 }
       );
     });
   },
@@ -271,15 +230,24 @@ export const locationService = {
   // Annotates items with real distance, estimated delivery time & fee based on customer location
   enrichItemsWithLocation(items, userLocation) {
     const loc = userLocation || this.getCurrentLocation();
-    return items.map((item) => {
-      const storeLat = item.lat || 7.3872;
-      const storeLng = item.lng || 3.8824;
+    return items.map((item, index) => {
+      const offset = VENDOR_OFFSETS[index % VENDOR_OFFSETS.length];
+      const storeLat = loc?.lat ? (loc.lat + offset.dLat) : (item.lat || 7.3582);
+      const storeLng = loc?.lng ? (loc.lng + offset.dLng) : (item.lng || 3.8643);
+
       const distance = this.getDistanceKm(loc.lat, loc.lng, storeLat, storeLng);
       const deliveryTime = this.estimateDeliveryTime(distance);
       const deliveryFee = this.calculateDeliveryFee(distance);
 
+      const localizedLocation = loc?.shortName && loc.shortName !== 'Near Me'
+        ? `${loc.shortName} (${offset.hubSuffix})`
+        : (item.locationName || 'Local Hub');
+
       return {
         ...item,
+        lat: storeLat,
+        lng: storeLng,
+        locationName: localizedLocation,
         distance,
         deliveryTime,
         deliveryFee
@@ -290,15 +258,24 @@ export const locationService = {
   // Annotates vendors with real distance, estimated delivery time & fee based on customer location
   enrichVendorsWithLocation(vendors, userLocation) {
     const loc = userLocation || this.getCurrentLocation();
-    return vendors.map((vendor) => {
-      const vendorLat = vendor.lat || 7.3872;
-      const vendorLng = vendor.lng || 3.8824;
+    return vendors.map((vendor, index) => {
+      const offset = VENDOR_OFFSETS[index % VENDOR_OFFSETS.length];
+      const vendorLat = loc?.lat ? (loc.lat + offset.dLat) : (vendor.lat || 7.3582);
+      const vendorLng = loc?.lng ? (loc.lng + offset.dLng) : (vendor.lng || 3.8643);
+
       const distance = this.getDistanceKm(loc.lat, loc.lng, vendorLat, vendorLng);
       const deliveryTime = this.estimateDeliveryTime(distance);
       const deliveryFee = this.calculateDeliveryFee(distance);
 
+      const localizedLocation = loc?.shortName && loc.shortName !== 'Near Me'
+        ? `${loc.shortName} (${offset.hubSuffix})`
+        : (vendor.locationName || 'Local Merchant Hub');
+
       return {
         ...vendor,
+        lat: vendorLat,
+        lng: vendorLng,
+        locationName: localizedLocation,
         distance,
         deliveryTime,
         deliveryFee

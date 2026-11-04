@@ -175,7 +175,12 @@ export type OrderStatus =
   | 'delivered'
   | 'cancelled';
 
-export type PaymentMethod = 'flutterwave' | 'card' | 'bank_transfer' | 'wallet';
+export type PaymentMethod = 'paystack' | 'card_paystack' | 'card' | 'bank_transfer' | 'wallet' | 'flutterwave';
+
+export interface PaystackSubaccount {
+  subaccountCode: string; // e.g. ACCT_xxxxxxx
+  share?: number; // split percentage or fixed amount
+}
 
 export interface FlutterwaveSubaccount {
   id: string;

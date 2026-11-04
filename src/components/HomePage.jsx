@@ -527,10 +527,12 @@ export default function HomePage({
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '18px' }}>
             <div>
               <h2 style={{ fontSize: '20px', fontWeight: '900', color: '#0F172A' }}>
-                Verified Partner Vendors
+                Stores & Merchants In Your Area
               </h2>
               <p style={{ fontSize: '13px', color: '#64748B' }}>
-                Sorted by closest distance to your area in Ibadan
+                {currentLocation?.isGPS 
+                  ? `Showing merchants near ${currentLocation.shortName || currentLocation.name} sorted by distance`
+                  : 'Sorted by closest distance to your location'}
               </p>
             </div>
           </div>

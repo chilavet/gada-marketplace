@@ -1,9 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { X, Lock, Mail, User, Phone, MapPin, Eye, EyeOff, Sparkles, CheckCircle2, ArrowRight, KeyRound, Smartphone, AlertCircle, RefreshCw } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
+const GoogleIcon = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" style={{ flexShrink: 0 }}>
+    <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z"/>
+    <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.26 21.36 7.34 24 12 24z"/>
+    <path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.25C.45 8.16 0 9.94 0 12s.45 3.84 1.25 5.42l4.03-3.15z"/>
+    <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.34 0 3.26 2.64 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98z"/>
+  </svg>
+);
+
 export default function AuthModal({ isOpen, onClose, onSuccess, initialMode = 'login', message = '' }) {
-  const { login, requestOtp, verifyOtp, register } = useAuth();
+  const { login, requestOtp, verifyOtp, register, loginWithGoogle } = useAuth();
 
   const [mode, setMode] = useState(initialMode); // 'login' | 'otp' | 'register'
   const [showPassword, setShowPassword] = useState(false);
@@ -11,6 +20,14 @@ export default function AuthModal({ isOpen, onClose, onSuccess, initialMode = 'l
   const [loading, setLoading] = useState(false);
   const [otpSent, setOtpSent] = useState(false);
   const [otpNotice, setOtpNotice] = useState('');
+
+  // Sync mode when modal opens or initialMode changes
+  useEffect(() => {
+    if (isOpen) {
+      setMode(initialMode);
+      setError('');
+    }
+  }, [isOpen, initialMode]);
 
   // Form states
   const [identifier, setIdentifier] = useState(''); // email or phone
@@ -120,6 +137,24 @@ export default function AuthModal({ isOpen, onClose, onSuccess, initialMode = 'l
     }
   };
 
+  const handleGoogleLogin = async () => {
+    setError('');
+    setLoading(true);
+    try {
+      const user = await loginWithGoogle({
+        name: name.trim() || 'George Emmanuel',
+        email: email.trim().includes('@') ? email.trim() : 'george.emmanuel@gmail.com',
+        avatar: 'GE'
+      });
+      if (onSuccess) onSuccess(user, `Signed in with Google! Welcome to Gada, ${user.name}! 🚀`);
+      onClose();
+    } catch (err) {
+      setError(err.message || 'Google sign-in failed.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const handleQuickDemoLogin = async () => {
     setError('');
     setLoading(true);
@@ -196,6 +231,22 @@ export default function AuthModal({ isOpen, onClose, onSuccess, initialMode = 'l
           {/* Mode Switcher Tabs */}
           <div style={{ display: 'flex', gap: '6px', marginTop: '18px', background: 'rgba(255,255,255,0.06)', padding: '4px', borderRadius: '12px' }}>
             <button
+              onClick={() => { setMode('register'); setError(''); }}
+              style={{
+                flex: 1,
+                padding: '8px',
+                borderRadius: '8px',
+                border: 'none',
+                background: mode === 'register' ? '#FF6B00' : 'transparent',
+                color: '#FFF',
+                fontWeight: '700',
+                fontSize: '12px',
+                cursor: 'pointer'
+              }}
+            >
+              Sign Up
+            </button>
+            <button
               onClick={() => { setMode('login'); setError(''); }}
               style={{
                 flex: 1,
@@ -209,7 +260,7 @@ export default function AuthModal({ isOpen, onClose, onSuccess, initialMode = 'l
                 cursor: 'pointer'
               }}
             >
-              Password Login
+              Sign In
             </button>
             <button
               onClick={() => { setMode('otp'); setError(''); }}
@@ -226,22 +277,6 @@ export default function AuthModal({ isOpen, onClose, onSuccess, initialMode = 'l
               }}
             >
               Phone / OTP
-            </button>
-            <button
-              onClick={() => { setMode('register'); setError(''); }}
-              style={{
-                flex: 1,
-                padding: '8px',
-                borderRadius: '8px',
-                border: 'none',
-                background: mode === 'register' ? '#FF6B00' : 'transparent',
-                color: '#FFF',
-                fontWeight: '700',
-                fontSize: '12px',
-                cursor: 'pointer'
-              }}
-            >
-              Register
             </button>
           </div>
         </div>
@@ -287,6 +322,45 @@ export default function AuthModal({ isOpen, onClose, onSuccess, initialMode = 'l
               <span>{error}</span>
             </div>
           )}
+
+          {/* Prominent Google Sign-In / Sign-Up Button */}
+          <button
+            type="button"
+            onClick={handleGoogleLogin}
+            disabled={loading}
+            style={{
+              width: '100%',
+              padding: '13px 18px',
+              borderRadius: '14px',
+              border: '1.5px solid #E2E8F0',
+              background: '#FFFFFF',
+              color: '#0F172A',
+              fontSize: '14px',
+              fontWeight: '700',
+              cursor: loading ? 'not-allowed' : 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '12px',
+              boxShadow: '0 2px 6px rgba(0, 0, 0, 0.04)',
+              transition: 'all 0.2s ease',
+              marginBottom: '18px'
+            }}
+            onMouseEnter={(e) => { e.currentTarget.style.borderColor = '#CBD5E1'; e.currentTarget.style.background = '#F8FAFC'; }}
+            onMouseLeave={(e) => { e.currentTarget.style.borderColor = '#E2E8F0'; e.currentTarget.style.background = '#FFFFFF'; }}
+          >
+            <GoogleIcon />
+            <span>{mode === 'register' ? 'Sign up with Google' : 'Continue with Google'}</span>
+          </button>
+
+          {/* Divider */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '18px' }}>
+            <div style={{ flex: 1, height: '1px', background: '#E2E8F0' }} />
+            <span style={{ fontSize: '11px', color: '#94A3B8', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.6px' }}>
+              {mode === 'register' ? 'Or register with email' : 'Or with email & password'}
+            </span>
+            <div style={{ flex: 1, height: '1px', background: '#E2E8F0' }} />
+          </div>
 
           {/* 1. PASSWORD LOGIN MODE */}
           {mode === 'login' && (
@@ -587,7 +661,7 @@ export default function AuthModal({ isOpen, onClose, onSuccess, initialMode = 'l
                   <MapPin size={18} style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)', color: '#94A3B8' }} />
                   <input
                     type="text"
-                    placeholder="e.g. Ring Road, Bodija, or Dugbe, Ibadan"
+                    placeholder="e.g. 14 Commercial Ave, Victoria Island or Ring Road"
                     value={address}
                     onChange={(e) => setAddress(e.target.value)}
                     style={{ width: '100%', padding: '11px 14px 11px 42px', borderRadius: '12px', border: '1.5px solid #E2E8F0', fontSize: '14px', boxSizing: 'border-box' }}
@@ -611,7 +685,7 @@ export default function AuthModal({ isOpen, onClose, onSuccess, initialMode = 'l
                   marginTop: '8px'
                 }}
               >
-                {loading ? 'Creating Account...' : 'Complete Registration'}
+                {loading ? 'Creating Account...' : 'Sign Up with Email'}
               </button>
             </form>
           )}

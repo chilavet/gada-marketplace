@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { X, Send, Bike, Check, CheckCheck, Clock, ShieldCheck, Sparkles } from 'lucide-react';
+import { X, Send, Bike, Check, CheckCheck, Clock, ShieldCheck, Sparkles, Phone } from 'lucide-react';
 import { playStatusNotificationChime } from '../../lib/soundNotifications';
 
 export function OrderChatModal({
@@ -111,38 +111,110 @@ export function OrderChatModal({
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 animate-fade-in">
       <div className="bg-white rounded-3xl max-w-lg w-full h-[620px] max-h-[90vh] flex flex-col shadow-2xl overflow-hidden border border-gray-100">
         {/* Chat Header */}
-        <div className="bg-gray-900 text-white p-4 flex items-center justify-between border-b border-gray-800">
-          <div className="flex items-center space-x-3">
-            <div className="relative">
-              <div className="w-11 h-11 rounded-full bg-amber-500 text-gray-900 font-extrabold flex items-center justify-center text-base shadow">
-                <Bike size={20} className="text-gray-950" />
+        <div
+          style={{
+            background: '#FFFFFF',
+            color: '#0F172A',
+            padding: '16px 20px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            borderBottom: '1px solid #E2E8F0',
+            boxShadow: '0 1px 3px rgba(0,0,0,0.04)'
+          }}
+        >
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+            <div style={{ position: 'relative' }}>
+              <div
+                style={{
+                  width: '44px',
+                  height: '44px',
+                  borderRadius: '50%',
+                  background: 'linear-gradient(135deg, #FF6B00, #EA580C)',
+                  color: '#FFFFFF',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  boxShadow: '0 2px 8px rgba(255, 107, 0, 0.25)'
+                }}
+              >
+                <Bike size={20} color="#FFFFFF" />
               </div>
-              <span className="absolute bottom-0 right-0 w-3 h-3 bg-emerald-500 border-2 border-gray-900 rounded-full" />
+              <span
+                style={{
+                  position: 'absolute',
+                  bottom: 0,
+                  right: 0,
+                  width: '12px',
+                  height: '12px',
+                  borderRadius: '50%',
+                  background: '#10B981',
+                  border: '2px solid #FFFFFF'
+                }}
+              />
             </div>
 
             <div>
-              <div className="flex items-center gap-1.5">
-                <h3 className="font-bold text-sm text-white">{riderName}</h3>
-                <span className="text-[10px] bg-amber-500/20 text-amber-300 px-1.5 py-0.5 rounded font-semibold border border-amber-500/30">
-                  Gadaride
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <h3 style={{ fontSize: '16px', fontWeight: '800', color: '#0F172A', margin: 0 }}>
+                  {riderName}
+                </h3>
+                <span
+                  style={{
+                    fontSize: '11px',
+                    background: '#DCFCE7',
+                    color: '#166534',
+                    padding: '2px 8px',
+                    borderRadius: '9999px',
+                    fontWeight: '800',
+                    border: '1px solid #BBF7D0'
+                  }}
+                >
+                  ● Online Courier
                 </span>
               </div>
-              <p className="text-[11px] text-gray-400">
-                Order #{orderId} • En route
+              <p style={{ fontSize: '12px', color: '#64748B', margin: '2px 0 0 0', fontWeight: '500' }}>
+                Order <strong style={{ color: '#0F172A' }}>#{orderId}</strong> &bull; <span style={{ color: '#059669', fontWeight: '700' }}>En route</span>
               </p>
             </div>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <a
               href={`tel:${riderPhone}`}
-              className="text-xs bg-gray-800 hover:bg-gray-700 text-gray-200 px-3 py-1.5 rounded-lg border border-gray-700 transition font-medium"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '6px',
+                fontSize: '13px',
+                fontWeight: '800',
+                background: '#059669',
+                color: '#FFFFFF',
+                padding: '8px 14px',
+                borderRadius: '12px',
+                boxShadow: '0 2px 6px rgba(5, 150, 105, 0.25)',
+                textDecoration: 'none'
+              }}
+              title={`Call ${riderName}`}
             >
-              Call
+              <Phone size={14} color="#FFFFFF" />
+              <span>Call</span>
             </a>
             <button
               onClick={onClose}
-              className="h-8 w-8 rounded-full bg-gray-800 hover:bg-gray-700 text-gray-300 flex items-center justify-center transition"
+              style={{
+                width: '36px',
+                height: '36px',
+                borderRadius: '10px',
+                background: '#F1F5F9',
+                color: '#334155',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                border: '1px solid #E2E8F0',
+                cursor: 'pointer'
+              }}
+              title="Close chat"
             >
               <X size={18} />
             </button>
@@ -150,12 +222,12 @@ export function OrderChatModal({
         </div>
 
         {/* Live Delivery Security Badge */}
-        <div className="bg-amber-50 px-4 py-2 text-[11px] text-amber-900 flex items-center justify-between border-b border-amber-100">
+        <div className="bg-emerald-50 px-4 py-2 text-[11px] text-emerald-900 flex items-center justify-between border-b border-emerald-100 font-medium">
           <div className="flex items-center gap-1.5">
-            <ShieldCheck size={14} className="text-amber-600" />
+            <ShieldCheck size={14} className="text-emerald-600" />
             <span>Encrypted In-App Rider & Customer Channel</span>
           </div>
-          <span className="text-amber-700 font-bold">Fast Response</span>
+          <span className="text-emerald-700 font-bold">Fast Response</span>
         </div>
 
         {/* Scrollable Message History */}

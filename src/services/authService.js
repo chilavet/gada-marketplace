@@ -18,16 +18,16 @@ const DEFAULT_DEMO_USERS = [
       {
         id: 'addr-1',
         label: 'Home',
-        address: 'No 14, Ring Road, Ibadan, Oyo State',
+        address: 'No 14, Commercial Avenue',
         isDefault: true,
-        landmark: 'Opposite Mobil Station'
+        landmark: 'Near Central Station'
       },
       {
         id: 'addr-2',
         label: 'Office',
-        address: 'Dugbe Tech Hub, Suite 3B, Commercial Ave, Ibadan',
+        address: 'Tech Hub, Suite 3B, Commercial Ave',
         isDefault: false,
-        landmark: 'Beside First Bank'
+        landmark: 'Beside Central Bank'
       }
     ],
     orders: [
@@ -44,11 +44,11 @@ const DEFAULT_DEMO_USERS = [
         riderName: 'Babatunde Ogunlesi',
         total: 8400,
         status: 'Delivered',
-        deliveryAddress: 'No 14, Ring Road, Ibadan, Oyo State'
+        deliveryAddress: 'No 14, Commercial Avenue'
       }
     ],
     transactions: [
-      { id: 'tx-101', title: 'Wallet Topup via Flutterwave', date: 'Oct 14, 2026', amount: 30000, type: 'credit' },
+      { id: 'tx-101', title: 'Wallet Topup via Paystack', date: 'Oct 14, 2026', amount: 30000, type: 'credit' },
       { id: 'tx-102', title: 'Order #GADA-8291 Payment', date: 'Yesterday', amount: 8400, type: 'debit' }
     ]
   }
@@ -115,6 +115,58 @@ export const authService = {
     const demo = users[0] || DEFAULT_DEMO_USERS[0];
     this.saveCurrentUser(demo);
     return demo;
+  },
+
+  loginWithGoogle({ email = 'george.emmanuel@gmail.com', name = 'George Emmanuel', avatar = 'GE' } = {}) {
+    const users = this.getAllUsers();
+    const normalizedEmail = (email || 'google.user@gmail.com').trim().toLowerCase();
+    
+    let user = users.find(u => u.email.trim().toLowerCase() === normalizedEmail);
+
+    if (!user) {
+      const initials = name
+        .split(' ')
+        .filter(Boolean)
+        .slice(0, 2)
+        .map(part => part[0].toUpperCase())
+        .join('') || 'G';
+
+      user = {
+        id: `google-${Date.now()}`,
+        name: name.trim() || 'Google User',
+        email: normalizedEmail,
+        password: '',
+        phone: '+234 800 000 0000',
+        authProvider: 'google',
+        avatar: avatar || initials,
+        walletBalance: 15000,
+        addresses: [
+          {
+            id: `addr-${Date.now()}`,
+            label: 'Home',
+            address: 'Central Hub',
+            isDefault: true,
+            landmark: 'Near Local Market'
+          }
+        ],
+        orders: [],
+        transactions: [
+          {
+            id: `tx-google-${Date.now()}`,
+            title: 'Google Sign-Up Bonus',
+            date: 'Just Now',
+            amount: 15000,
+            type: 'credit'
+          }
+        ]
+      };
+
+      users.push(user);
+      localStorage.setItem(USERS_STORAGE_KEY, JSON.stringify(users));
+    }
+
+    this.saveCurrentUser(user);
+    return user;
   },
 
   register({ name, email, phone, password, address }) {

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import HomePage from './components/HomePage';
+import ItemGroupsLanding from './components/ItemGroupsLanding';
 import VendorPage from './components/VendorPage';
 import ItemModal from './components/ItemModal';
 import MarketRunPage from './components/MarketRunPage';
@@ -66,6 +67,25 @@ export default function App() {
         });
     }
   }, []);
+
+  // Access device location and display what's in that area when a user logs in
+  const syncDeviceLocation = async () => {
+    try {
+      showToast('📍 Accessing device location to show items in your area...');
+      const detected = await locationService.detectGPSLocation();
+      setCurrentLocation(detected);
+      locationService.setCurrentLocation(detected);
+      showToast(`📍 Location detected: ${detected.name}. Showing stores & items in your area!`);
+    } catch (err) {
+      console.warn('Device location access on login:', err);
+    }
+  };
+
+  useEffect(() => {
+    if (currentUser) {
+      syncDeviceLocation();
+    }
+  }, [currentUser]);
 
   // Sync URL hash routing (e.g. #store-v1, #orders-GADA-8291)
   useEffect(() => {
@@ -223,27 +243,43 @@ export default function App() {
 
       {/* Main Routed Views */}
       {activeTab === 'home' && !selectedVendor && (
-        <HomePage
-          selectedCategory={selectedCategory}
-          setSelectedCategory={setSelectedCategory}
-          onSelectItem={(item) => setSelectedItem(item)}
-          onSelectVendor={(vendor) => {
-            setSelectedVendor(vendor);
-            setActiveTab('vendor');
-            window.location.hash = `store-${vendor.slug || vendor.id}`;
-          }}
-          onNavigateToMarketRun={() => {
-            setActiveTab('market-run');
-            window.location.hash = 'market-run';
-          }}
-          onAddToCart={(item) => {
-            addToCart(item);
-            showToast(`Added "${item.name}" to basket! 🛒`);
-          }}
-          currentLocation={currentLocation}
-          onSelectLocation={handleSelectLocation}
-          onOpenLocationModal={() => setIsLocationModalOpen(true)}
-        />
+        !currentUser ? (
+          <ItemGroupsLanding
+            currentLocation={currentLocation}
+            onOpenAuth={handleOpenAuth}
+            onOpenLocationModal={() => setIsLocationModalOpen(true)}
+            onOpenPartnerRegistration={handleOpenPartner}
+            onSelectGroup={(group) => {
+              setSelectedCategory(group.id);
+              handleOpenAuth(
+                'register',
+                `Sign up with Google or Email to unlock menus, prices, and items in ${group.title}! 🚀`
+              );
+            }}
+          />
+        ) : (
+          <HomePage
+            selectedCategory={selectedCategory}
+            setSelectedCategory={setSelectedCategory}
+            onSelectItem={(item) => setSelectedItem(item)}
+            onSelectVendor={(vendor) => {
+              setSelectedVendor(vendor);
+              setActiveTab('vendor');
+              window.location.hash = `store-${vendor.slug || vendor.id}`;
+            }}
+            onNavigateToMarketRun={() => {
+              setActiveTab('market-run');
+              window.location.hash = 'market-run';
+            }}
+            onAddToCart={(item) => {
+              addToCart(item);
+              showToast(`Added "${item.name}" to basket! 🛒`);
+            }}
+            currentLocation={currentLocation}
+            onSelectLocation={handleSelectLocation}
+            onOpenLocationModal={() => setIsLocationModalOpen(true)}
+          />
+        )
       )}
 
       {activeTab === 'vendor' && selectedVendor && (
@@ -374,6 +410,10 @@ export default function App() {
         onClose={() => setIsAuthModalOpen(false)}
         initialMode={authMode}
         message={authPromptMessage}
+        onSuccess={async (user, welcomeMsg) => {
+          showToast(welcomeMsg || `Welcome, ${user.name}! 👋`);
+          await syncDeviceLocation();
+        }}
       />
 
       {/* Location Selector Modal */}

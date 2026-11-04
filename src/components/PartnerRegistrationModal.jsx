@@ -196,7 +196,7 @@ export default function PartnerRegistrationModal({ isOpen, onClose, initialTab =
                 }}
               >
                 <UserCheck size={16} />
-                <span>👔 Register as Store Agent</span>
+                <span>👔 Register as Rider or Store Agent</span>
               </button>
             </div>
           )}
@@ -328,7 +328,7 @@ export default function PartnerRegistrationModal({ isOpen, onClose, initialTab =
                   <input
                     type="text"
                     required
-                    placeholder="e.g. Shop 4, Bodija Market Road, Ibadan"
+                    placeholder="e.g. Shop 4, Commercial Avenue"
                     value={vendorForm.address}
                     onChange={e => setVendorForm({ ...vendorForm, address: e.target.value })}
                     style={{ width: '100%', padding: '10px 14px', borderRadius: '10px', border: '1px solid #CBD5E1', fontSize: '13px' }}
@@ -473,7 +473,7 @@ export default function PartnerRegistrationModal({ isOpen, onClose, initialTab =
                   <input
                     type="text"
                     required
-                    placeholder="e.g. Sango, Ibadan"
+                    placeholder="e.g. Street, Neighborhood, City"
                     value={agentForm.residentArea}
                     onChange={e => setAgentForm({ ...agentForm, residentArea: e.target.value })}
                     style={{ width: '100%', padding: '10px 14px', borderRadius: '10px', border: '1px solid #CBD5E1', fontSize: '13px' }}
@@ -539,7 +539,7 @@ export default function PartnerRegistrationModal({ isOpen, onClose, initialTab =
                 }}
               >
                 <UserCheck size={18} />
-                <span>Submit Store Agent Registration</span>
+                <span>Submit Rider or Store Agent Registration</span>
               </button>
             </form>
           )}

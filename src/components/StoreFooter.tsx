@@ -15,7 +15,7 @@ export function StoreFooter() {
             The on-demand multi-vendor commerce and rapid delivery ecosystem powered by Gadatech Integrated Synergy Ltd & Gadaride logistics.
           </p>
           <p className="text-gray-500 text-[10px]">
-            Lagos Hub: 202 Festac Town, Lagos, Nigeria.
+            Operations HQ: Gadatech Global Hub
           </p>
         </div>
 
@@ -45,7 +45,7 @@ export function StoreFooter() {
         <div className="space-y-3">
           <h4 className="text-white font-bold text-xs uppercase tracking-wider">Secure Settlement</h4>
           <p className="text-[11px] text-gray-400">
-            Encrypted transactions verified via Flutterwave. Supports Nigerian Debit Cards, Bank Transfer, and USSD.
+            Encrypted transactions verified via Paystack. Supports Debit/Credit Cards, Bank Transfer, USSD, Apple Pay, and Instant Settlement.
           </p>
           <div className="flex items-center space-x-2 text-emerald-400 text-[11px] font-semibold">
             <span>🔒</span>

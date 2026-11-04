@@ -40,7 +40,7 @@ export default function Navbar({
         >
           <MapPin size={16} color={currentLocation?.isGPS ? '#16A34A' : '#0B4FD8'} />
           <span style={{ fontWeight: '700', color: '#0F172A', maxWidth: '170px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-            {currentLocation?.shortName || currentLocation?.name || 'Ring Road, Ibadan'}
+            {currentLocation?.isGPS ? (currentLocation?.shortName || currentLocation?.name) : (currentLocation?.name || 'Locating Area...')}
           </span>
           <span
             style={{
@@ -52,7 +52,7 @@ export default function Navbar({
               fontWeight: '800'
             }}
           >
-            {currentLocation?.isGPS ? 'Google Maps' : 'Change'}
+            {currentLocation?.isGPS ? 'Live GPS' : 'Location'}
           </span>
         </div>
 
@@ -62,9 +62,18 @@ export default function Navbar({
           <input
             type="text"
             className="search-input"
-            placeholder="Search items on display, groceries, restaurants, hubs..."
+            placeholder={currentUser ? "Search items on display, groceries, restaurants, hubs..." : "Sign up with Google or Email to search and order..."}
             value={searchQuery}
+            onClick={() => {
+              if (!currentUser) {
+                onOpenAuth('register', 'Sign up with Google or Email to search items and view prices.');
+              }
+            }}
             onChange={(e) => {
+              if (!currentUser) {
+                onOpenAuth('register', 'Sign up with Google or Email to search items and view prices.');
+                return;
+              }
               setSearchQuery(e.target.value);
               if (activeTab !== 'search' && e.target.value.trim() !== '') {
                 setActiveTab('search');
@@ -76,7 +85,17 @@ export default function Navbar({
         {/* Nav Actions */}
         <div className="nav-actions" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
           {/* Cart Button */}
-          <button className="icon-btn" onClick={onOpenCart} title="View Cart">
+          <button
+            className="icon-btn"
+            onClick={() => {
+              if (!currentUser) {
+                onOpenAuth('register', 'Sign up with Google or Email to view and build your basket.');
+              } else {
+                onOpenCart();
+              }
+            }}
+            title={currentUser ? "View Cart" : "Sign in to view cart"}
+          >
             <ShoppingBag size={20} />
             {cartCount > 0 && <span className="badge-count">{cartCount}</span>}
           </button>

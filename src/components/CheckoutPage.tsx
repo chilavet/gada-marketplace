@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { useCartStore } from '@/store/useCartStore';
 import { CartSummary } from '@/components/CartSummary';
-import { FlutterwaveCheckoutButton } from '@/components/checkout/FlutterwaveCheckoutButton';
+import { PaystackCheckoutButton } from '@/components/checkout/PaystackCheckoutButton';
 import { DeliveryZoneSelector } from '@/components/checkout/DeliveryZoneSelector';
 import { DeliveryZone } from '@/types/zones';
 import { useStoreHours } from '@/hooks/useStoreHours';
@@ -168,7 +168,7 @@ export default function CheckoutPage() {
         </div>
       </div>
 
-      {/* Cart Summary & Flutterwave Trigger */}
+      {/* Cart Summary & Paystack Trigger */}
       <div className="md:col-span-5 space-y-6">
         <CartSummary />
 
@@ -184,7 +184,7 @@ export default function CheckoutPage() {
           </div>
         )}
 
-        <FlutterwaveCheckoutButton
+        <PaystackCheckoutButton
           email={formData.email}
           fullName={formData.fullName}
           phone={formData.phone}

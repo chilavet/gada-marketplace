@@ -243,9 +243,9 @@ export default function OrderTrackingPage({
 
       {/* Dispatch Rider Card */}
       {order.rider && (
-        <div className="bg-gradient-to-r from-gray-900 to-gray-800 text-white rounded-2xl p-6 shadow-md flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <div className="bg-white border border-gray-200 text-gray-900 rounded-2xl p-6 shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
           <div className="flex items-center space-x-4">
-            <div className="h-14 w-14 rounded-full bg-amber-500 flex items-center justify-center text-xl font-bold text-white uppercase overflow-hidden">
+            <div className="h-14 w-14 rounded-full bg-gradient-to-br from-amber-500 to-orange-500 flex items-center justify-center text-xl font-bold text-white uppercase overflow-hidden shadow-sm">
               {order.rider.photoUrl ? (
                 <img
                   src={order.rider.photoUrl}
@@ -257,29 +257,29 @@ export default function OrderTrackingPage({
               )}
             </div>
             <div>
-              <span className="text-xs text-amber-400 uppercase font-semibold tracking-wider">
+              <span className="text-xs text-orange-600 uppercase font-extrabold tracking-wider">
                 Assigned Dispatch Rider
               </span>
-              <h3 className="text-lg font-bold">{order.rider.name}</h3>
-              <p className="text-xs text-gray-300">
-                Vehicle: {order.rider.vehicleType?.toUpperCase() || 'MOTORCYCLE'} • {order.rider.vehiclePlateNumber || 'Abuja Fleet'}
+              <h3 className="text-lg font-extrabold text-gray-900">{order.rider.name}</h3>
+              <p className="text-xs text-gray-600 font-medium">
+                Vehicle: {order.rider.vehicleType?.toUpperCase() || 'MOTORCYCLE'} • {order.rider.vehiclePlateNumber || 'Courier Fleet'}
               </p>
             </div>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
+          <div className="flex flex-col sm:flex-row gap-2.5 w-full sm:w-auto">
             <button
               type="button"
               onClick={() => setIsChatOpen(true)}
-              className="px-5 py-2.5 bg-gray-900 hover:bg-black text-white font-semibold rounded-lg text-sm text-center transition flex items-center justify-center gap-2 border border-gray-700"
+              className="px-5 py-2.5 bg-orange-500 hover:bg-orange-600 text-white font-extrabold rounded-xl text-sm text-center transition flex items-center justify-center gap-2 shadow-sm cursor-pointer"
             >
-              <span>💬 In-App Chat</span>
+              <span>💬 Chat with Rider</span>
             </button>
             <a
               href={`tel:${order.rider.phone}`}
-              className="px-5 py-2.5 bg-amber-500 hover:bg-amber-600 text-white font-semibold rounded-lg text-sm text-center transition flex items-center justify-center gap-2"
+              className="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold rounded-xl text-sm text-center transition flex items-center justify-center gap-2 shadow-sm cursor-pointer no-underline"
             >
-              <span>Call Rider ({order.rider.phone})</span>
+              <span>📞 Call Rider ({order.rider.phone})</span>
             </a>
           </div>
         </div>

@@ -24,10 +24,10 @@ export const orderService = {
         delivery: {
           shippingAddress: {
             id: 'addr_01',
-            street: '12 Admiralty Way',
-            city: 'Lekki',
-            state: 'Lagos',
-            country: 'Nigeria',
+            street: '14 Commercial Avenue',
+            city: 'Local Area',
+            state: 'Local Area',
+            country: 'Global',
           },
           recipientName: payload.recipientName,
           recipientPhone: payload.recipientPhone,
@@ -52,7 +52,7 @@ export const orderService = {
     });
   },
 
-  // Initialize payment session (e.g., Flutterwave inline URL)
+  // Initialize payment session (e.g., Paystack inline / checkout URL)
   async initializePayment(orderId: string): Promise<ApiResponse<InitializePaymentResponse>> {
     return withMockFallback(async () => {
       const response = await apiClient.post<ApiResponse<InitializePaymentResponse>>(
@@ -62,13 +62,13 @@ export const orderService = {
     }, {
       success: true,
       data: {
-        authorizationUrl: 'https://checkout.flutterwave.com/v3/hosted/pay/sample_reference',
+        authorizationUrl: 'https://checkout.paystack.com/sample_reference',
         reference: `trx_${Date.now()}`,
       },
     });
   },
 
-  // Verify Flutterwave transaction
+  // Verify Paystack transaction
   async verifyPayment(payload: {
     transactionId: number | string;
     expectedAmount?: number;
@@ -112,10 +112,10 @@ export const orderService = {
         delivery: {
           shippingAddress: {
             id: 'addr_01',
-            street: '14 Ring Road',
-            city: 'Ibadan',
-            state: 'Oyo State',
-            country: 'Nigeria',
+            street: '14 Commercial Avenue',
+            city: 'Local Area',
+            state: 'Local Area',
+            country: 'Global',
           },
           recipientName: 'Customer',
           recipientPhone: '+234 800 000 0000',
@@ -139,7 +139,7 @@ export const orderService = {
         },
         payment: {
           transactionRef: `trx_${Date.now()}`,
-          method: 'flutterwave',
+          method: 'paystack',
           status: 'success',
         },
         createdAt: new Date().toISOString(),

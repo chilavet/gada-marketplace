@@ -937,7 +937,7 @@ input, textarea, select {
 .ml-4 { margin-left: 1rem; }
 .pl-8 { padding-left: 2rem; }
 .space-x-4 > * + * { margin-left: 1rem; }
-.bg-gradient-to-r { background-image: linear-gradient(to right, var(--tw-gradient-stops, #0F172A, #1E293B)); }
+.bg-gradient-to-r { background-image: linear-gradient(to right, #FFF4EC, #FFFFFF); }
 .from-gray-900 { --tw-gradient-from: #0F172A; }
 .to-gray-800 { --tw-gradient-to: #1E293B; }
 .h-14 { height: 3.5rem; }

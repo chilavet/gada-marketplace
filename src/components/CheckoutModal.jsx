@@ -19,7 +19,7 @@ export default function CheckoutModal({
   const { currentUser, addAddress } = useAuth();
   const { cartItems, vendorGroups, summary } = useCart();
 
-  const [paymentMethod, setPaymentMethod] = useState('card_flutterwave'); // 'card_flutterwave' | 'wallet'
+  const [paymentMethod, setPaymentMethod] = useState('card_paystack'); // 'card_paystack' | 'wallet'
   const [selectedAddressId, setSelectedAddressId] = useState(
     currentUser?.addresses?.find(a => a.isDefault)?.id || currentUser?.addresses?.[0]?.id || 'custom'
   );
@@ -46,7 +46,7 @@ export default function CheckoutModal({
   const resolvedAddress = currentUser?.addresses?.find(a => a.id === selectedAddressId)?.address
     || customAddress
     || (currentUser?.addresses?.[0]?.address)
-    || 'No 14, Ring Road, Ibadan, Oyo State';
+    || 'No 14, Commercial Avenue';
 
   const handleAddNewAddressSubmit = async (e) => {
     e.preventDefault();
@@ -67,7 +67,7 @@ export default function CheckoutModal({
     }
 
     if (paymentMethod === 'wallet' && !hasSufficientWallet) {
-      alert(`Insufficient wallet balance (₦${userWallet.toLocaleString()}). Please top up or select Flutterwave.`);
+      alert(`Insufficient wallet balance (₦${userWallet.toLocaleString()}). Please top up or select Paystack.`);
       return;
     }
 
@@ -86,8 +86,8 @@ export default function CheckoutModal({
 
       setPaymentReference(initRes.reference);
 
-      // If online card gateway (Flutterwave), show the interactive checkout simulator
-      if (paymentMethod === 'card_flutterwave') {
+      // If online card gateway (Paystack), show the interactive checkout simulator
+      if (paymentMethod === 'card_paystack' || paymentMethod === 'paystack' || paymentMethod === 'card_flutterwave') {
         setGatewayStep('gateway_modal');
         setIsProcessingPayment(false);
       } else {
@@ -166,7 +166,7 @@ export default function CheckoutModal({
                 Multi-Vendor Secure Checkout
               </h2>
               <p style={{ fontSize: '12px', color: '#64748B' }}>
-                Ibadan Hyperlocal Delivery &bull; {vendorGroups.length} Merchant {vendorGroups.length === 1 ? 'Hub' : 'Hubs'}
+                Rapid Direct Delivery &bull; {vendorGroups.length} Merchant {vendorGroups.length === 1 ? 'Hub' : 'Hubs'}
               </p>
             </div>
           </div>
@@ -195,25 +195,46 @@ export default function CheckoutModal({
           </div>
         )}
 
-        {/* INTERACTIVE FLUTTERWAVE GATEWAY POPUP SIMULATOR */}
+        {/* INTERACTIVE PAYSTACK GATEWAY POPUP SIMULATOR */}
         {gatewayStep === 'gateway_modal' && (
-          <div style={{ padding: '28px', background: '#0F172A', color: '#FFF', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-            <div style={{ background: '#1E293B', borderRadius: '20px', padding: '24px', border: '1px solid #334155' }}>
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid #334155', paddingBottom: '14px', marginBottom: '18px' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: '#FB923C', color: '#FFF', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: '900', fontSize: '14px' }}>
-                    F
+          <div style={{ padding: '28px', background: '#0B192C', color: '#FFF', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+            <div style={{ background: '#102A45', borderRadius: '20px', padding: '24px', border: '1px solid #1E4976', boxShadow: '0 20px 40px rgba(0,0,0,0.4)' }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid #1E4976', paddingBottom: '14px', marginBottom: '18px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                  <div style={{ width: '34px', height: '34px', borderRadius: '8px', background: '#0AA5FF', color: '#FFF', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: '900', fontSize: '16px', letterSpacing: '-0.5px' }}>
+                    P
                   </div>
                   <div>
-                    <div style={{ fontSize: '14px', fontWeight: '800' }}>
-                      Flutterwave Standard
+                    <div style={{ fontSize: '14px', fontWeight: '800', color: '#FFFFFF', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                      <span>Paystack Checkout</span>
+                      <span style={{ fontSize: '10px', background: 'rgba(10,165,255,0.2)', color: '#38BDF8', padding: '1px 6px', borderRadius: '4px', fontWeight: '700' }}>LIVE</span>
                     </div>
-                    <div style={{ fontSize: '11px', color: '#94A3B8' }}>Reference: {paymentReference}</div>
+                    <div style={{ fontSize: '11px', color: '#94A3B8' }}>Ref: {paymentReference}</div>
                   </div>
                 </div>
-                <div style={{ fontSize: '16px', fontWeight: '900', color: '#38BDF8' }}>
+                <div style={{ fontSize: '17px', fontWeight: '900', color: '#38BDF8' }}>
                   ₦{finalTotal.toLocaleString()}
                 </div>
+              </div>
+
+              {/* Channel Selector Pills */}
+              <div style={{ display: 'flex', gap: '6px', marginBottom: '16px' }}>
+                {['Card', 'Bank Transfer', 'USSD', 'Apple Pay'].map((channel, i) => (
+                  <span
+                    key={channel}
+                    style={{
+                      fontSize: '11px',
+                      fontWeight: '700',
+                      padding: '4px 10px',
+                      borderRadius: '8px',
+                      background: i === 0 ? '#0AA5FF' : 'rgba(255,255,255,0.06)',
+                      color: i === 0 ? '#FFF' : '#94A3B8',
+                      cursor: 'default'
+                    }}
+                  >
+                    {channel}
+                  </span>
+                ))}
               </div>
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
@@ -223,7 +244,7 @@ export default function CheckoutModal({
                     type="text"
                     value={cardDetails.number}
                     onChange={(e) => setCardDetails({ ...cardDetails, number: e.target.value })}
-                    style={{ width: '100%', padding: '10px 12px', borderRadius: '10px', background: '#0F172A', border: '1px solid #475569', color: '#FFF', fontSize: '14px', fontWeight: '700', marginTop: '4px', boxSizing: 'border-box' }}
+                    style={{ width: '100%', padding: '10px 12px', borderRadius: '10px', background: '#071626', border: '1px solid #1E4976', color: '#FFF', fontSize: '14px', fontWeight: '700', marginTop: '4px', boxSizing: 'border-box' }}
                   />
                 </div>
 
@@ -234,7 +255,7 @@ export default function CheckoutModal({
                       type="text"
                       value={cardDetails.expiry}
                       onChange={(e) => setCardDetails({ ...cardDetails, expiry: e.target.value })}
-                      style={{ width: '100%', padding: '10px 12px', borderRadius: '10px', background: '#0F172A', border: '1px solid #475569', color: '#FFF', fontSize: '14px', fontWeight: '700', marginTop: '4px', boxSizing: 'border-box' }}
+                      style={{ width: '100%', padding: '10px 12px', borderRadius: '10px', background: '#071626', border: '1px solid #1E4976', color: '#FFF', fontSize: '14px', fontWeight: '700', marginTop: '4px', boxSizing: 'border-box' }}
                     />
                   </div>
                   <div>
@@ -244,26 +265,26 @@ export default function CheckoutModal({
                       maxLength={3}
                       value={cardDetails.cvv}
                       onChange={(e) => setCardDetails({ ...cardDetails, cvv: e.target.value })}
-                      style={{ width: '100%', padding: '10px 12px', borderRadius: '10px', background: '#0F172A', border: '1px solid #475569', color: '#FFF', fontSize: '14px', fontWeight: '700', marginTop: '4px', boxSizing: 'border-box' }}
+                      style={{ width: '100%', padding: '10px 12px', borderRadius: '10px', background: '#071626', border: '1px solid #1E4976', color: '#FFF', fontSize: '14px', fontWeight: '700', marginTop: '4px', boxSizing: 'border-box' }}
                     />
                   </div>
                 </div>
 
-                <div style={{ fontSize: '11px', color: '#94A3B8', display: 'flex', alignItems: 'center', gap: '6px', marginTop: '6px' }}>
-                  <Lock size={12} color="#10B981" />
-                  <span>256-bit SSL Encrypted &bull; PCI-DSS Level 1 Certified</span>
+                <div style={{ fontSize: '11px', color: '#94A3B8', display: 'flex', alignItems: 'center', gap: '6px', marginTop: '4px' }}>
+                  <Lock size={12} color="#0AA5FF" />
+                  <span>Secured by Paystack &bull; PCI-DSS Level 1 Certified</span>
                 </div>
 
                 <div style={{ display: 'flex', gap: '10px', marginTop: '12px' }}>
                   <button
                     onClick={() => setGatewayStep('form')}
-                    style={{ flex: 1, padding: '12px', borderRadius: '12px', border: '1px solid #475569', background: 'transparent', color: '#94A3B8', fontSize: '13px', fontWeight: '700', cursor: 'pointer' }}
+                    style={{ flex: 1, padding: '12px', borderRadius: '12px', border: '1px solid #1E4976', background: 'transparent', color: '#94A3B8', fontSize: '13px', fontWeight: '700', cursor: 'pointer' }}
                   >
                     Cancel
                   </button>
                   <button
                     onClick={handleGatewayAuthorize}
-                    style={{ flex: 2, padding: '12px', borderRadius: '12px', border: 'none', background: '#10B981', color: '#FFF', fontSize: '14px', fontWeight: '800', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}
+                    style={{ flex: 2, padding: '12px', borderRadius: '12px', border: 'none', background: 'linear-gradient(135deg, #0AA5FF 0%, #0081CB 100%)', color: '#FFF', fontSize: '14px', fontWeight: '800', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', boxShadow: '0 4px 16px rgba(10,165,255,0.3)' }}
                   >
                     <span>Authorize ₦{finalTotal.toLocaleString()}</span>
                     <ArrowRight size={16} />
@@ -290,7 +311,7 @@ export default function CheckoutModal({
             <div style={{ marginBottom: '24px' }}>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px' }}>
                 <span style={{ fontSize: '14px', fontWeight: '800', color: '#0F172A' }}>
-                  1. Delivery Destination (Ibadan)
+                  1. Delivery Destination
                 </span>
                 {currentUser && !isAddingNewAddress && (
                   <button
@@ -319,7 +340,7 @@ export default function CheckoutModal({
                   <input
                     type="text"
                     required
-                    placeholder="Enter street, house number, area in Ibadan"
+                    placeholder="Enter street, house number, area"
                     value={newAddressText}
                     onChange={(e) => setNewAddressText(e.target.value)}
                     style={{ width: '100%', padding: '10px 12px', borderRadius: '10px', border: '1px solid #CBD5E1', fontSize: '13px', boxSizing: 'border-box', marginBottom: '10px' }}
@@ -364,7 +385,7 @@ export default function CheckoutModal({
                     <div>
                       <input
                         type="text"
-                        placeholder="Type delivery address in Ibadan (e.g. Ring Road, Bodija, Dugbe)"
+                        placeholder="Type delivery address (e.g. Street name, Area, City)"
                         value={customAddress}
                         onChange={(e) => setCustomAddress(e.target.value)}
                         style={{ width: '100%', padding: '12px 14px', borderRadius: '12px', border: '1.5px solid #E2E8F0', fontSize: '13px', boxSizing: 'border-box' }}
@@ -393,14 +414,14 @@ export default function CheckoutModal({
               </span>
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                {/* Flutterwave Standard */}
+                {/* Paystack Gateway */}
                 <div
-                  onClick={() => setPaymentMethod('card_flutterwave')}
+                  onClick={() => setPaymentMethod('card_paystack')}
                   style={{
                     padding: '14px 16px',
                     borderRadius: '14px',
-                    border: paymentMethod === 'card_flutterwave' ? '2px solid #FF6B00' : '1px solid #E2E8F0',
-                    background: paymentMethod === 'card_flutterwave' ? '#FFF8F4' : '#FFF',
+                    border: (paymentMethod === 'card_paystack' || paymentMethod === 'paystack') ? '2px solid #0AA5FF' : '1px solid #E2E8F0',
+                    background: (paymentMethod === 'card_paystack' || paymentMethod === 'paystack') ? '#F0F9FF' : '#FFF',
                     cursor: 'pointer',
                     display: 'flex',
                     alignItems: 'center',
@@ -408,15 +429,18 @@ export default function CheckoutModal({
                   }}
                 >
                   <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                    <div style={{ width: '36px', height: '36px', borderRadius: '10px', background: '#FEF3C7', color: '#D97706', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <div style={{ width: '36px', height: '36px', borderRadius: '10px', background: '#E0F2FE', color: '#0284C7', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                       <Landmark size={18} />
                     </div>
                     <div>
-                      <div style={{ fontSize: '13px', fontWeight: '800', color: '#0F172A' }}>Flutterwave Gateway</div>
-                      <div style={{ fontSize: '11px', color: '#64748B' }}>Cards, USSD, Barter, Apple Pay & Bank Direct</div>
+                      <div style={{ fontSize: '13px', fontWeight: '800', color: '#0F172A', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                        <span>Paystack Gateway</span>
+                        <span style={{ fontSize: '10px', background: '#0AA5FF', color: '#FFF', padding: '1px 6px', borderRadius: '4px', fontWeight: '800' }}>Instant</span>
+                      </div>
+                      <div style={{ fontSize: '11px', color: '#64748B' }}>Cards, USSD, Bank Transfer, Apple Pay & QR</div>
                     </div>
                   </div>
-                  {paymentMethod === 'card_flutterwave' && <CheckCircle size={18} color="#FF6B00" />}
+                  {(paymentMethod === 'card_paystack' || paymentMethod === 'paystack') && <CheckCircle size={18} color="#0AA5FF" />}
                 </div>
 
                 {/* Gada In-App Wallet */}
@@ -442,7 +466,7 @@ export default function CheckoutModal({
                         Gada In-App Wallet (₦{userWallet.toLocaleString()})
                       </div>
                       <div style={{ fontSize: '11px', color: hasSufficientWallet ? '#16A34A' : '#DC2626', fontWeight: '600' }}>
-                        {hasSufficientWallet ? 'Sufficient balance for instant checkout' : 'Low balance - please top up or select Flutterwave'}
+                        {hasSufficientWallet ? 'Sufficient balance for instant checkout' : 'Low balance - please top up or select Paystack'}
                       </div>
                     </div>
                   </div>

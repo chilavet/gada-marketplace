@@ -46,7 +46,7 @@ export default function Footer({
                 Join The Network
               </span>
               <span style={{ fontSize: '12px', color: '#CBD5E1', fontWeight: '600' }}>
-                Grow your business across Nigeria with Gada Logistics
+                Grow your business with Gada Logistics
               </span>
             </div>
             <h3 style={{ fontSize: '22px', fontWeight: '800', color: '#FFF' }}>
@@ -99,7 +99,7 @@ export default function Footer({
               }}
             >
               <UserCheck size={18} />
-              <span>Register as Store Agent</span>
+              <span>Register as Rider or Store Agent</span>
             </button>
           </div>
         </div>
@@ -124,7 +124,7 @@ export default function Footer({
             </div>
 
             <p style={{ fontSize: '13px', color: '#94A3B8', lineHeight: '1.6', marginBottom: '20px' }}>
-              Hyperlocal marketplace and on-demand delivery logistics connecting local restaurants, supermarkets, and farm markets directly to customer doorsteps in Nigeria with Google Maps precision.
+              Hyperlocal marketplace and on-demand delivery logistics connecting local restaurants, supermarkets, and farm markets directly to customer doorsteps with live Google Maps precision.
             </p>
 
             {/* Contact details */}
@@ -255,7 +255,7 @@ export default function Footer({
                   onMouseLeave={e => e.currentTarget.style.color = '#CBD5E1'}
                 >
                   <UserCheck size={15} color="#60A5FA" />
-                  <span>Register as Store Hub Agent</span>
+                  <span>Register as Rider or Store Agent</span>
                 </button>
               </li>
 

@@ -9,7 +9,7 @@ A modern on-demand multi-vendor commerce and rapid delivery web platform built f
 - **Multi-Vendor Storefront**: Browse restaurants, supermarkets, pharmacies, and specialty stores with instant category filtering and real-time search.
 - **Interactive Cart & Checkout**:
   - Live order calculation, discount promo codes (`GADAFREE`), and delivery fee calculation.
-  - Multiple payment methods: **Flutterwave Gateway** (Card, Bank Transfer, USSD) and **Gada In-App Wallet**.
+  - Multiple payment methods: **Paystack Gateway** (Card, Bank Transfer, USSD, Apple Pay) and **Gada In-App Wallet**.
   - Flexible delivery options: Immediate dispatch or scheduled time slots.
 - **Live Rider GPS Tracking**:
   - Continuous real-time courier movement with smooth coordinates interpolation.
@@ -28,7 +28,7 @@ A modern on-demand multi-vendor commerce and rapid delivery web platform built f
 
 - **Framework**: [React 19](https://react.dev/) + [Vite 8](https://vitejs.dev/)
 - **Icons**: [Lucide React](https://lucide.dev/)
-- **Payments**: Flutterwave React SDK (`flutterwave-react-v3`)
+- **Payments**: Paystack Inline SDK (`@paystack/inline-js` / PaystackPop)
 - **State Management**: Zustand & React Hooks
 - **Styling**: Vanilla CSS + Tailwind utility classes
 - **Audio Notifications**: Web Audio API (zero external asset dependencies)
@@ -55,10 +55,10 @@ Copy `.env.example` to `.env`:
 ```bash
 cp .env.example .env
 ```
-Update your Flutterwave public key:
+Update your Paystack public key:
 ```env
-VITE_FLUTTERWAVE_PUBLIC_KEY=your_flutterwave_public_key_here
-NEXT_PUBLIC_FLUTTERWAVE_PUBLIC_KEY=your_flutterwave_public_key_here
+VITE_PAYSTACK_PUBLIC_KEY=your_paystack_public_key_here
+NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY=your_paystack_public_key_here
 ```
 
 ### 4. Run Development Server
@@ -93,7 +93,7 @@ npm run preview
    - **Framework Preset**: Vite
    - **Build Command**: `npm run build`
    - **Output Directory**: `dist`
-4. Add your environment variables (`VITE_FLUTTERWAVE_PUBLIC_KEY`) in the Vercel project settings.
+4. Add your environment variables (`VITE_PAYSTACK_PUBLIC_KEY`) in the Vercel project settings.
 5. Click **Deploy**.
 
 > **Note for SPA Routing on Vercel**: Create a `vercel.json` in the root folder if needed:

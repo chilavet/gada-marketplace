@@ -87,7 +87,7 @@ export default function OrderConfirmationModal({
             Reference: <strong>{order.id || order.orderNumber}</strong>
           </p>
           <div style={{ marginTop: '8px', display: 'inline-block', background: 'rgba(255,255,255,0.2)', padding: '3px 12px', borderRadius: '14px', fontSize: '12px', fontWeight: '700' }}>
-            Paid &bull; {order.paymentMethod === 'wallet' ? 'Gada Wallet' : 'Flutterwave Gateway'}
+            Paid &bull; {order.paymentMethod === 'wallet' ? 'Gada Wallet' : 'Paystack Gateway'}
           </div>
         </div>
 

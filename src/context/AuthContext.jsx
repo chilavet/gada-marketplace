@@ -70,6 +70,18 @@ export function AuthProvider({ children }) {
     }
   };
 
+  const loginWithGoogle = async (googleData = {}) => {
+    setIsLoading(true);
+    try {
+      const res = await authApi.loginWithGoogle(googleData);
+      setCurrentUser(res.user);
+      setTokenState(res.token);
+      return res.user;
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const logout = async () => {
     await authApi.logout();
     setCurrentUser(null);
@@ -124,6 +136,7 @@ export function AuthProvider({ children }) {
         requestOtp,
         verifyOtp,
         register,
+        loginWithGoogle,
         logout,
         updateProfile,
         addAddress,

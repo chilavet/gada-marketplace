@@ -131,6 +131,25 @@ export const authApi = {
     };
   },
 
+  async loginWithGoogle(payload = {}) {
+    if (!IS_MOCK_MODE) {
+      const res = await apiClient.post('/auth/google', payload);
+      if (res.token) apiClient.setToken(res.token);
+      return res;
+    }
+
+    await new Promise(r => setTimeout(r, 400));
+    const user = authService.loginWithGoogle(payload);
+    const mockToken = `mock-google-token-${user.id}-${Date.now()}`;
+    apiClient.setToken(mockToken);
+
+    return {
+      success: true,
+      user,
+      token: mockToken
+    };
+  },
+
   async getMe() {
     if (!IS_MOCK_MODE) {
       return apiClient.get('/auth/me');
@@ -198,7 +217,11 @@ export const catalogApi = {
 
     // Filter by Category
     if (category && category !== 'all') {
-      items = items.filter(it => it.category === category);
+      if (category === 'food') {
+        items = items.filter(it => ['rice', 'swallow', 'snacks', 'drinks', 'bakery'].includes(it.category));
+      } else {
+        items = items.filter(it => it.category === category);
+      }
     }
 
     // Filter by Price
@@ -425,13 +448,13 @@ export const checkoutApi = {
 
     const reference = `GADA-PAY-${Date.now()}-${Math.floor(Math.random() * 9000)}`;
 
-    if (paymentMethod === 'card_flutterwave' || paymentMethod === 'flutterwave') {
+    if (paymentMethod === 'card_paystack' || paymentMethod === 'paystack' || paymentMethod === 'card_flutterwave' || paymentMethod === 'flutterwave') {
       return {
         success: true,
-        gateway: 'Flutterwave',
+        gateway: 'Paystack',
         reference,
-        checkoutUrl: `https://checkout.flutterwave.com/v3/hosted/pay/${reference}`,
-        message: 'Flutterwave payment gateway initialized.'
+        checkoutUrl: `https://checkout.paystack.com/${reference}`,
+        message: 'Paystack payment gateway initialized.'
       };
     }
 
@@ -504,10 +527,10 @@ export const orderApi = {
 
     const shippingAddress = typeof orderPayload.address === 'object' ? orderPayload.address : {
       id: `addr-${Date.now()}`,
-      street: orderPayload.address || '14 Ring Road',
-      city: 'Ibadan',
-      state: 'Oyo State',
-      country: 'Nigeria',
+      street: orderPayload.address || '14 Commercial Avenue',
+      city: 'Local Area',
+      state: 'Local Area',
+      country: 'Global',
       landmark: orderPayload.deliveryNotes || '',
       isDefault: true
     };
@@ -538,14 +561,14 @@ export const orderApi = {
       },
       payment: {
         transactionRef: orderPayload.paymentReference || `TXN-${orderId}`,
-        method: orderPayload.paymentMethod || 'flutterwave',
+        method: orderPayload.paymentMethod || 'paystack',
         status: 'success',
         paidAt: new Date().toISOString()
       },
       items,
       vendorGroups,
       total: totalAmount,
-      address: typeof orderPayload.address === 'string' ? orderPayload.address : (orderPayload.address?.street || 'Ibadan'),
+      address: typeof orderPayload.address === 'string' ? orderPayload.address : (orderPayload.address?.street || 'Local Area'),
       deliveryNotes: orderPayload.deliveryNotes || '',
       customerName: orderPayload.customerName || 'Customer',
       customerPhone: orderPayload.customerPhone || '+234 800 000 0000',

@@ -159,7 +159,7 @@ export default function VendorPage({ vendor, onBack, onSelectItem, onAddToCart, 
               </div>
 
               <p style={{ fontSize: '13px', color: '#CBD5E1', marginTop: '4px', maxWidth: '600px' }}>
-                {vendor.bio || `Top merchant in ${vendor.locationName || 'Ibadan'} offering fresh items, fast logistics prep, and authentic flavors.`}
+                {vendor.bio || `Top merchant in ${vendor.locationName || 'your area'} offering fresh items, fast logistics prep, and authentic flavors.`}
               </p>
 
               {/* Vendor Badges Strip */}

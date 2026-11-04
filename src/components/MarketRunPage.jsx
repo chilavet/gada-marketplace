@@ -36,7 +36,7 @@ export default function MarketRunPage({ onBack, onSubmitMarketRun }) {
       const customMarket = {
         id: `custom-${Date.now()}`,
         name: marketSearchQuery.trim(),
-        location: 'Ibadan Market / Store',
+        location: 'Local Market / Store',
         icon: '🛒'
       };
       setSelectedMarket(customMarket);
@@ -62,7 +62,7 @@ export default function MarketRunPage({ onBack, onSubmitMarketRun }) {
     const finalMarket = selectedMarket || {
       id: 'custom-mkt',
       name: marketSearchQuery.trim() || 'Bodija Market',
-      location: 'Ibadan',
+      location: 'Local Market',
       icon: '🛒'
     };
 
@@ -123,7 +123,7 @@ export default function MarketRunPage({ onBack, onSubmitMarketRun }) {
               1. Type the Market You Want
             </label>
             <p style={{ fontSize: '13px', color: '#64748B', marginBottom: '14px' }}>
-              Type any market name in Ibadan where you want your agent to shop.
+              Type any market or store name where you want your agent to shop.
             </p>
 
             <div style={{ position: 'relative' }}>
@@ -257,7 +257,7 @@ export default function MarketRunPage({ onBack, onSubmitMarketRun }) {
 
                   {searchResults.length === 0 && !marketSearchQuery.trim() && (
                     <div style={{ padding: '16px', textAlign: 'center', color: '#64748B', fontSize: '13px' }}>
-                      Start typing to find or enter any market name in Ibadan.
+                      Start typing to find or enter any market or store name.
                     </div>
                   )}
                 </div>
@@ -285,7 +285,7 @@ export default function MarketRunPage({ onBack, onSubmitMarketRun }) {
                       Selected Target Market:
                     </span>
                     <div style={{ fontSize: '14px', fontWeight: '800', color: '#0F172A' }}>
-                      {selectedMarket.name} <span style={{ fontSize: '12px', fontWeight: '500', color: '#64748B' }}>({selectedMarket.location || 'Ibadan'})</span>
+                      {selectedMarket.name} <span style={{ fontSize: '12px', fontWeight: '500', color: '#64748B' }}>({selectedMarket.location || 'Local'})</span>
                     </div>
                   </div>
                 </div>

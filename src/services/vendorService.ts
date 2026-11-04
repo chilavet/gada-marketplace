@@ -20,7 +20,7 @@ const mockVendor: Vendor = {
     street: 'Plot 1204 Ahmadu Bello Way, Wuse II',
     city: 'Abuja',
     state: 'FCT',
-    country: 'Nigeria',
+    country: 'Global',
   },
   operatingHours: [
     { day: 'monday', openTime: '08:00', closeTime: '22:00', isOpen: true },

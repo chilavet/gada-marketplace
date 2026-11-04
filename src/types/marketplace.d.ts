@@ -145,7 +145,7 @@ export interface Order {
   discountAmount?: number;
   total: number;
   status: OrderStatus;
-  paymentMethod: 'wallet' | 'card_flutterwave' | 'flutterwave';
+  paymentMethod: 'wallet' | 'card_paystack' | 'paystack' | 'card_flutterwave' | 'flutterwave';
   paymentReference?: string;
   deliveryAddress: Address | string;
   deliveryNotes?: string;

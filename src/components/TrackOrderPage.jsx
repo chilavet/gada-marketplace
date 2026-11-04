@@ -64,13 +64,13 @@ export default function TrackOrderPage({ order, onBack }) {
     return () => clearInterval(interval);
   }, [order?.id]);
 
-  const storeLocation = order?.storeLocation || order?.vendorLocation || 'Bodija Central Hub, Ibadan';
+  const storeLocation = order?.storeLocation || order?.vendorLocation || 'Central Dispatch Hub';
   const rider = order?.rider || order?.assignedRider;
   const riderName = rider?.name || order?.riderName || 'Babatunde Ogunlesi';
   const riderPhone = rider?.phone || '+234 812 893 4921';
   const deliveryAddress = order?.delivery?.shippingAddress?.street
-    ? `${order.delivery.shippingAddress.street}, ${order.delivery.shippingAddress.city || 'Ibadan'}`
-    : (order?.address || order?.deliveryAddress || 'No 14, Ring Road, Ibadan');
+    ? `${order.delivery.shippingAddress.street}, ${order.delivery.shippingAddress.city || 'Local Area'}`
+    : (order?.address || order?.deliveryAddress || 'Delivery Address');
   const orderId = order?.id || order?.orderNumber || 'GADA-9104';
 
   const steps = [
@@ -83,7 +83,7 @@ export default function TrackOrderPage({ order, onBack }) {
     },
     {
       title: 'Vendor Preparing',
-      actor: `Store: ${order?.storeName || order?.vendorName || 'Bodija Market Hub'}`,
+      actor: `Store: ${order?.storeName || order?.vendorName || 'Local Merchant Hub'}`,
       desc: 'Merchant kitchen is packaging fresh items and assembling order',
       time: 'In Progress',
       icon: <Store size={16} />
@@ -340,7 +340,7 @@ export default function TrackOrderPage({ order, onBack }) {
                     <ShieldCheck size={16} color="#10B981" />
                   </div>
                   <div style={{ fontSize: '12px', color: '#64748B', marginTop: '2px' }}>
-                    TVS Neo Delivery Bike &bull; <strong>IBD-492-OYO</strong>
+                    Delivery Courier Bike &bull; <strong>GADA-492-EXP</strong>
                   </div>
                   <div style={{ fontSize: '12px', color: '#D97706', fontWeight: '700', marginTop: '2px' }}>
                     ★ 4.9 Rating (1,400+ deliveries)
@@ -353,20 +353,23 @@ export default function TrackOrderPage({ order, onBack }) {
                   href={`tel:${riderPhone}`}
                   style={{
                     flex: 1,
-                    padding: '10px',
-                    borderRadius: '12px',
-                    background: '#0B4FD8',
-                    color: '#FFF',
+                    padding: '12px 14px',
+                    borderRadius: '14px',
+                    background: '#059669',
+                    color: '#FFFFFF',
                     fontSize: '13px',
                     fontWeight: '800',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    gap: '6px',
-                    textDecoration: 'none'
+                    gap: '7px',
+                    textDecoration: 'none',
+                    boxShadow: '0 2px 8px rgba(5, 150, 105, 0.25)',
+                    transition: 'all 0.2s'
                   }}
+                  title={`Call ${riderName}`}
                 >
-                  <Phone size={15} />
+                  <Phone size={16} color="#FFF" />
                   <span>Call Rider</span>
                 </a>
 
@@ -374,22 +377,25 @@ export default function TrackOrderPage({ order, onBack }) {
                   type="button"
                   onClick={() => setIsChatOpen(true)}
                   style={{
-                    padding: '10px 16px',
-                    borderRadius: '12px',
+                    flex: 1,
+                    padding: '12px 14px',
+                    borderRadius: '14px',
                     background: '#FF6B00',
-                    color: '#FFF',
+                    color: '#FFFFFF',
                     fontSize: '13px',
                     fontWeight: '800',
                     display: 'flex',
                     alignItems: 'center',
-                    gap: '6px',
+                    justifyContent: 'center',
+                    gap: '7px',
                     border: 'none',
                     cursor: 'pointer',
                     boxShadow: '0 2px 8px rgba(255,107,0,0.3)',
                     transition: 'all 0.2s'
                   }}
+                  title="Open live chat with rider"
                 >
-                  <MessageSquare size={15} />
+                  <MessageSquare size={16} color="#FFF" />
                   <span>Chat with Rider</span>
                 </button>
               </div>
@@ -406,7 +412,7 @@ export default function TrackOrderPage({ order, onBack }) {
                   <Store size={16} color="#0B4FD8" style={{ flexShrink: 0, marginTop: '2px' }} />
                   <div>
                     <span style={{ fontSize: '11px', color: '#64748B', display: 'block' }}>Merchant Hub</span>
-                    <strong style={{ color: '#0F172A' }}>{order?.storeName || 'Bodija Market Central Hub'}</strong>
+                    <strong style={{ color: '#0F172A' }}>{order?.storeName || 'Local Merchant Central Hub'}</strong>
                     <div style={{ fontSize: '11px', color: '#64748B' }}>{storeLocation}</div>
                   </div>
                 </div>
