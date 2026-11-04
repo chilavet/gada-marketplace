@@ -173,7 +173,7 @@ export default function PartnerRegistrationModal({ isOpen, onClose, initialTab =
                 }}
               >
                 <Store size={16} />
-                <span>🏪 Register as Vendor / Store</span>
+                <span>🏪 Register as a Vendor</span>
               </button>
 
               <button
@@ -196,7 +196,7 @@ export default function PartnerRegistrationModal({ isOpen, onClose, initialTab =
                 }}
               >
                 <UserCheck size={16} />
-                <span>👔 Register as Rider or Store Agent</span>
+                <span>👔 Register as an Agent</span>
               </button>
             </div>
           )}
@@ -539,7 +539,7 @@ export default function PartnerRegistrationModal({ isOpen, onClose, initialTab =
                 }}
               >
                 <UserCheck size={18} />
-                <span>Submit Rider or Store Agent Registration</span>
+                <span>Submit Agent Registration</span>
               </button>
             </form>
           )}

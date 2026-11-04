@@ -77,7 +77,7 @@ export default function Footer({
               }}
             >
               <Store size={18} />
-              <span>Register as Vendor</span>
+              <span>Register as a Vendor</span>
             </button>
 
             <button
@@ -99,7 +99,7 @@ export default function Footer({
               }}
             >
               <UserCheck size={18} />
-              <span>Register as Rider or Store Agent</span>
+              <span>Register as an Agent</span>
             </button>
           </div>
         </div>
@@ -243,7 +243,7 @@ export default function Footer({
                   onMouseLeave={e => e.currentTarget.style.color = '#CBD5E1'}
                 >
                   <Store size={15} color="#FFA000" />
-                  <span>Register as a Store Vendor</span>
+                  <span>Register as a Vendor</span>
                 </button>
               </li>
 
@@ -255,7 +255,7 @@ export default function Footer({
                   onMouseLeave={e => e.currentTarget.style.color = '#CBD5E1'}
                 >
                   <UserCheck size={15} color="#60A5FA" />
-                  <span>Register as Rider or Store Agent</span>
+                  <span>Register as an Agent</span>
                 </button>
               </li>
 
