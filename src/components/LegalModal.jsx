@@ -356,7 +356,7 @@ export default function LegalModal({ isOpen, onClose, initialDocument = 'terms' 
                 </p>
                 <div style={{ background: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '12px', padding: '14px', fontSize: '13px', marginBottom: '14px' }}>
                   <p><strong>For Authorities:</strong> <code>legal@gadamarketplace.com</code> (Languages: English)</p>
-                  <p style={{ marginTop: '4px' }}><strong>For Recipients of Service (Customers & Vendors):</strong> <code>support@gadamarketplace.com</code> or +234 812 345 6789</p>
+                  <p style={{ marginTop: '4px' }}><strong>For Recipients of Service (Customers & Vendors):</strong> <code>support@gadatechadmin.com</code> or +234 812 345 6789</p>
                 </div>
 
                 <h4 style={{ fontSize: '16px', fontWeight: '800', color: '#0F172A', marginTop: '20px', marginBottom: '8px' }}>

@@ -141,7 +141,7 @@ export default function Footer({
                 <Mail size={16} color="#60A5FA" style={{ flexShrink: 0 }} />
                 <span>
                   <strong style={{ color: '#FFF' }}>Support:</strong>{' '}
-                  <a href="mailto:support@gadamarketplace.com" style={{ color: '#E2E8F0', textDecoration: 'none' }}>support@gadamarketplace.com</a>
+                  <a href="mailto:support@gadatechadmin.com" style={{ color: '#E2E8F0', textDecoration: 'none' }}>support@gadatechadmin.com</a>
                 </span>
               </div>
 
