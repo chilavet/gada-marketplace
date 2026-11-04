@@ -91,9 +91,32 @@ export default function ItemGroupsLanding({
   return (
     <div style={{ width: '100%', minHeight: '100vh', background: '#F8FAFC' }}>
       {/* GROUPS / TYPES OF ITEMS SECTION */}
-      <section style={{ maxWidth: '1240px', margin: '0 auto', padding: '40px 24px 60px' }}>
-        {/* HERO SEARCH BAR ON TOP OF CATEGORIES PREVIEW */}
-        <div style={{ maxWidth: '780px', margin: '0 auto 40px' }}>
+      <section style={{ maxWidth: '1240px', margin: '0 auto', padding: '48px 24px 60px' }}>
+        {/* Categories Preview Header */}
+        <div style={{ textAlign: 'center', marginBottom: '32px' }}>
+          <div
+            style={{
+              display: 'inline-block',
+              color: '#FF6B00',
+              fontWeight: '800',
+              fontSize: '12px',
+              textTransform: 'uppercase',
+              letterSpacing: '1px',
+              marginBottom: '6px'
+            }}
+          >
+            CATEGORIES PREVIEW
+          </div>
+          <h2 style={{ fontSize: 'clamp(24px, 3.5vw, 32px)', fontWeight: '900', color: '#0F172A' }}>
+            Food, Pharmacy, Local Market & Supermarket
+          </h2>
+          <p style={{ fontSize: '14px', color: '#64748B', maxWidth: '620px', margin: '8px auto 0' }}>
+            Click on any category below to sign up with Google or Email and immediately unlock items, menus, and fast courier delivery to your doorstep.
+          </p>
+        </div>
+
+        {/* HERO SEARCH BAR ON TOP OF CATEGORIES PREVIEW CARDS */}
+        <div style={{ maxWidth: '780px', margin: '0 auto 44px' }}>
           <form
             onSubmit={(e) => {
               e.preventDefault();
@@ -211,29 +234,6 @@ export default function ItemGroupsLanding({
               </button>
             ))}
           </div>
-        </div>
-
-        {/* Categories Preview Header */}
-        <div style={{ textAlign: 'center', marginBottom: '36px' }}>
-          <div
-            style={{
-              display: 'inline-block',
-              color: '#FF6B00',
-              fontWeight: '800',
-              fontSize: '12px',
-              textTransform: 'uppercase',
-              letterSpacing: '1px',
-              marginBottom: '6px'
-            }}
-          >
-            CATEGORIES PREVIEW
-          </div>
-          <h2 style={{ fontSize: 'clamp(24px, 3.5vw, 32px)', fontWeight: '900', color: '#0F172A' }}>
-            Food, Pharmacy, Local Market & Supermarket
-          </h2>
-          <p style={{ fontSize: '14px', color: '#64748B', maxWidth: '620px', margin: '8px auto 0' }}>
-            Click on any category below to sign up with Google or Email and immediately unlock items, menus, and fast courier delivery to your doorstep.
-          </p>
         </div>
 
         {/* The Grid of 4 Categories */}
