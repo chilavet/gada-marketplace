@@ -413,7 +413,7 @@ export default function Footer({
 
               {/* Apple App Store Button */}
               <a
-                href="https://www.apple.com/app-store/"
+                href="https://apps.apple.com/us/app/gada-customer/id6578457399"
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{

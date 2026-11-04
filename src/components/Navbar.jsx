@@ -16,6 +16,12 @@ export default function Navbar({
 }) {
   const [showUserDropdown, setShowUserDropdown] = useState(false);
 
+  // Dynamic mobile store detection
+  const isAppleDevice = typeof navigator !== 'undefined' && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent) && !/Android/.test(navigator.userAgent);
+  const smartStoreUrl = isAppleDevice
+    ? 'https://apps.apple.com/us/app/gada-customer/id6578457399'
+    : 'https://play.google.com/store/apps/details?id=com.gadaclient&pcampaignid=web_share';
+
   return (
     <header className="navbar">
       <div className="navbar-content">
@@ -192,6 +198,30 @@ export default function Navbar({
                   </button>
 
                   <a
+                    href="https://apps.apple.com/us/app/gada-customer/id6578457399"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      width: '100%',
+                      padding: '8px 12px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '8px',
+                      borderRadius: '8px',
+                      fontSize: '13px',
+                      fontWeight: '600',
+                      color: '#0B4FD8',
+                      textAlign: 'left',
+                      textDecoration: 'none',
+                      boxSizing: 'border-box'
+                    }}
+                    onMouseEnter={(e) => e.currentTarget.style.background = '#EFF6FF'}
+                    onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
+                  >
+                    <Smartphone size={15} color="#0B4FD8" /> App Store (iOS)
+                  </a>
+
+                  <a
                     href="https://play.google.com/store/apps/details?id=com.gadaclient&pcampaignid=web_share"
                     target="_blank"
                     rel="noopener noreferrer"
@@ -212,7 +242,7 @@ export default function Navbar({
                     onMouseEnter={(e) => e.currentTarget.style.background = '#ECFDF5'}
                     onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
                   >
-                    <Smartphone size={15} color="#059669" /> Get App on Google Play
+                    <Smartphone size={15} color="#059669" /> Google Play (Android)
                   </a>
 
                   <div style={{ height: '1px', background: '#F1F5F9', margin: '4px 0' }} />
@@ -242,10 +272,10 @@ export default function Navbar({
           ) : (
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
               <a
-                href="https://play.google.com/store/apps/details?id=com.gadaclient&pcampaignid=web_share"
+                href={smartStoreUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                title="Download Gada App on Google Play Store"
+                title={isAppleDevice ? "Download Gada Customer App on Apple App Store" : "Download Gada App on Google Play Store"}
                 style={{
                   display: 'flex',
                   alignItems: 'center',
@@ -264,7 +294,7 @@ export default function Navbar({
                 onMouseEnter={(e) => e.currentTarget.style.background = '#E2E8F0'}
                 onMouseLeave={(e) => e.currentTarget.style.background = '#F1F5F9'}
               >
-                <Smartphone size={14} color="#059669" />
+                <Smartphone size={14} color={isAppleDevice ? "#0B4FD8" : "#059669"} />
                 <span>Get App</span>
               </a>
 
