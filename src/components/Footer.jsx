@@ -381,7 +381,7 @@ export default function Footer({
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
               {/* Google Play Button */}
               <a
-                href="https://play.google.com/store"
+                href="https://play.google.com/store/apps/details?id=com.gadaclient&pcampaignid=web_share"
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{

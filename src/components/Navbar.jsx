@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ShoppingBag, MapPin, User, LogOut, Package, Wallet, ChevronDown, Sparkles, LogIn } from 'lucide-react';
+import { ShoppingBag, MapPin, User, LogOut, Package, Wallet, ChevronDown, Sparkles, LogIn, Smartphone } from 'lucide-react';
 
 export default function Navbar({
   activeTab,
@@ -191,6 +191,30 @@ export default function Navbar({
                     <Package size={15} color="#3B82F6" /> Orders & Delivery History
                   </button>
 
+                  <a
+                    href="https://play.google.com/store/apps/details?id=com.gadaclient&pcampaignid=web_share"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      width: '100%',
+                      padding: '8px 12px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '8px',
+                      borderRadius: '8px',
+                      fontSize: '13px',
+                      fontWeight: '600',
+                      color: '#059669',
+                      textAlign: 'left',
+                      textDecoration: 'none',
+                      boxSizing: 'border-box'
+                    }}
+                    onMouseEnter={(e) => e.currentTarget.style.background = '#ECFDF5'}
+                    onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
+                  >
+                    <Smartphone size={15} color="#059669" /> Get App on Google Play
+                  </a>
+
                   <div style={{ height: '1px', background: '#F1F5F9', margin: '4px 0' }} />
 
                   <button
@@ -216,7 +240,34 @@ export default function Navbar({
               )}
             </div>
           ) : (
-            <div style={{ display: 'flex', alignItems: 'center' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <a
+                href="https://play.google.com/store/apps/details?id=com.gadaclient&pcampaignid=web_share"
+                target="_blank"
+                rel="noopener noreferrer"
+                title="Download Gada App on Google Play Store"
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  padding: '7px 14px',
+                  borderRadius: '20px',
+                  background: '#F1F5F9',
+                  border: '1px solid #E2E8F0',
+                  color: '#0F172A',
+                  fontSize: '12px',
+                  fontWeight: '700',
+                  textDecoration: 'none',
+                  transition: 'background 0.2s',
+                  whiteSpace: 'nowrap'
+                }}
+                onMouseEnter={(e) => e.currentTarget.style.background = '#E2E8F0'}
+                onMouseLeave={(e) => e.currentTarget.style.background = '#F1F5F9'}
+              >
+                <Smartphone size={14} color="#059669" />
+                <span>Get App</span>
+              </a>
+
               <button
                 onClick={() => onOpenAuth('login')}
                 className="primary-btn"

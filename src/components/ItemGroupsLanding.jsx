@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Lock, ArrowRight, Search, X, Sparkles } from 'lucide-react';
+import { Lock, ArrowRight, Search, X, Sparkles, Smartphone } from 'lucide-react';
 import TestimonialsShowcase from './testimonials/TestimonialsShowcase';
 
 const ITEM_GROUPS = [
@@ -91,32 +91,9 @@ export default function ItemGroupsLanding({
   return (
     <div style={{ width: '100%', minHeight: '100vh', background: '#F8FAFC' }}>
       {/* GROUPS / TYPES OF ITEMS SECTION */}
-      <section style={{ maxWidth: '1240px', margin: '0 auto', padding: '48px 24px 60px' }}>
-        {/* Categories Preview Header */}
-        <div style={{ textAlign: 'center', marginBottom: '32px' }}>
-          <div
-            style={{
-              display: 'inline-block',
-              color: '#FF6B00',
-              fontWeight: '800',
-              fontSize: '12px',
-              textTransform: 'uppercase',
-              letterSpacing: '1px',
-              marginBottom: '6px'
-            }}
-          >
-            CATEGORIES PREVIEW
-          </div>
-          <h2 style={{ fontSize: 'clamp(24px, 3.5vw, 32px)', fontWeight: '900', color: '#0F172A' }}>
-            Food, Pharmacy, Local Market & Supermarket
-          </h2>
-          <p style={{ fontSize: '14px', color: '#64748B', maxWidth: '620px', margin: '8px auto 0' }}>
-            Click on any category below to sign up with Google or Email and immediately unlock items, menus, and fast courier delivery to your doorstep.
-          </p>
-        </div>
-
-        {/* HERO SEARCH BAR ON TOP OF CATEGORIES PREVIEW CARDS */}
-        <div style={{ maxWidth: '780px', margin: '0 auto 44px' }}>
+      <section style={{ maxWidth: '1240px', margin: '0 auto', padding: '40px 24px 60px' }}>
+        {/* HERO SEARCH BAR ON TOP OF CATEGORIES PREVIEW */}
+        <div style={{ maxWidth: '780px', margin: '0 auto 40px' }}>
           <form
             onSubmit={(e) => {
               e.preventDefault();
@@ -234,6 +211,29 @@ export default function ItemGroupsLanding({
               </button>
             ))}
           </div>
+        </div>
+
+        {/* Categories Preview Header */}
+        <div style={{ textAlign: 'center', marginBottom: '36px' }}>
+          <div
+            style={{
+              display: 'inline-block',
+              color: '#FF6B00',
+              fontWeight: '800',
+              fontSize: '12px',
+              textTransform: 'uppercase',
+              letterSpacing: '1px',
+              marginBottom: '6px'
+            }}
+          >
+            CATEGORIES PREVIEW
+          </div>
+          <h2 style={{ fontSize: 'clamp(24px, 3.5vw, 32px)', fontWeight: '900', color: '#0F172A' }}>
+            Food, Pharmacy, Local Market & Supermarket
+          </h2>
+          <p style={{ fontSize: '14px', color: '#64748B', maxWidth: '620px', margin: '8px auto 0' }}>
+            Click on any category below to sign up with Google or Email and immediately unlock items, menus, and fast courier delivery to your doorstep.
+          </p>
         </div>
 
         {/* The Grid of 4 Categories */}
@@ -444,6 +444,87 @@ export default function ItemGroupsLanding({
         onOpenAuth={onOpenAuth}
         onOpenPartnerRegistration={onOpenPartnerRegistration}
       />
+
+      {/* DOWNLOAD GADA APP CALLOUT */}
+      <section style={{ maxWidth: '1240px', margin: '0 auto', padding: '0 24px 64px' }}>
+        <div
+          style={{
+            background: 'linear-gradient(135deg, #0B192C 0%, #1E293B 100%)',
+            borderRadius: '24px',
+            padding: '40px 36px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            flexWrap: 'wrap',
+            gap: '24px',
+            boxShadow: '0 20px 40px rgba(0,0,0,0.12)',
+            border: '1px solid #334155'
+          }}
+        >
+          <div style={{ maxWidth: '620px' }}>
+            <div
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px',
+                padding: '4px 12px',
+                borderRadius: '9999px',
+                background: 'rgba(5, 150, 105, 0.2)',
+                border: '1px solid rgba(5, 150, 105, 0.4)',
+                color: '#34D399',
+                fontSize: '11px',
+                fontWeight: '800',
+                textTransform: 'uppercase',
+                letterSpacing: '0.5px',
+                marginBottom: '12px'
+              }}
+            >
+              <Smartphone size={13} />
+              <span>Now On Google Play</span>
+            </div>
+            <h3 style={{ fontSize: 'clamp(22px, 3vw, 28px)', fontWeight: '900', color: '#FFF', margin: '0 0 10px 0', lineHeight: 1.25 }}>
+              Shop, Order & Track Faster With the Gada App
+            </h3>
+            <p style={{ fontSize: '14px', color: '#94A3B8', margin: 0, lineHeight: 1.6 }}>
+              Get instant dispatch alerts, real-time courier speedometer tracking, and fast payment directly from your Android phone.
+            </p>
+          </div>
+
+          <div>
+            <a
+              href="https://play.google.com/store/apps/details?id=com.gadaclient&pcampaignid=web_share"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '14px',
+                background: '#FFFFFF',
+                color: '#0F172A',
+                padding: '12px 22px',
+                borderRadius: '16px',
+                textDecoration: 'none',
+                fontWeight: '800',
+                boxShadow: '0 8px 24px rgba(0,0,0,0.2)',
+                transition: 'transform 0.15s ease'
+              }}
+              onMouseEnter={e => e.currentTarget.style.transform = 'translateY(-2px)'}
+              onMouseLeave={e => e.currentTarget.style.transform = 'translateY(0)'}
+            >
+              <svg width="28" height="28" viewBox="0 0 512 512" fill="none">
+                <path d="M47.2 24.2C37.5 34.6 32 50.1 32 69.8v372.4c0 19.7 5.5 35.2 15.2 45.6l2.3 2.2L258 281.5V230.5L49.5 22l-2.3 2.2z" fill="#00E676" />
+                <path d="M331.4 354.9l-73.4-73.4v-51L331.4 157l3.8 2.2 87.2 49.5c24.9 14.1 24.9 37.3 0 51.5l-87.2 49.5-3.8 5.2z" fill="#FFD600" />
+                <path d="M258 281.5L49.5 490c13.7 14.6 36.3 16.3 62.4 1.5l219.5-124.6-73.4-85.4z" fill="#FF3D00" />
+                <path d="M258 230.5l73.4-85.4L111.9 20.5C85.8 5.7 63.2 7.4 49.5 22L258 230.5z" fill="#00B0FF" />
+              </svg>
+              <div style={{ textAlign: 'left' }}>
+                <div style={{ fontSize: '10px', textTransform: 'uppercase', color: '#64748B', fontWeight: '700' }}>GET IT ON</div>
+                <div style={{ fontSize: '16px', fontWeight: '900', lineHeight: 1.1 }}>Google Play</div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
