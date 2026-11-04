@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ShoppingBag, Search, MapPin, User, LogOut, Package, Wallet, ChevronDown, Sparkles, LogIn } from 'lucide-react';
+import { ShoppingBag, MapPin, User, LogOut, Package, Wallet, ChevronDown, Sparkles, LogIn } from 'lucide-react';
 
 export default function Navbar({
   activeTab,
@@ -57,25 +57,6 @@ export default function Navbar({
             </span>
           </div>
         </div>
-
-        {/* Search Bar (visible when authenticated; brought down to categories preview on landing page) */}
-        {currentUser && (
-          <div className="search-bar-wrap">
-            <Search size={18} className="search-icon-inside" />
-            <input
-              type="text"
-              className="search-input"
-              placeholder="Search items on display, groceries, restaurants, hubs..."
-              value={searchQuery}
-              onChange={(e) => {
-                setSearchQuery(e.target.value);
-                if (activeTab !== 'search' && e.target.value.trim() !== '') {
-                  setActiveTab('search');
-                }
-              }}
-            />
-          </div>
-        )}
 
         {/* Nav Actions */}
         <div className="nav-actions" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
