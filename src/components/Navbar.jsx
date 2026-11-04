@@ -60,21 +60,17 @@ export default function Navbar({
 
         {/* Nav Actions */}
         <div className="nav-actions" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-          {/* Cart Button */}
-          <button
-            className="icon-btn"
-            onClick={() => {
-              if (!currentUser) {
-                onOpenAuth('register', 'Sign up with Google or Email to view and build your basket.');
-              } else {
-                onOpenCart();
-              }
-            }}
-            title={currentUser ? "View Cart" : "Sign in to view cart"}
-          >
-            <ShoppingBag size={20} />
-            {cartCount > 0 && <span className="badge-count">{cartCount}</span>}
-          </button>
+          {/* Cart Button (hidden on landing page for guest visitors) */}
+          {currentUser && (
+            <button
+              className="icon-btn"
+              onClick={onOpenCart}
+              title="View Cart"
+            >
+              <ShoppingBag size={20} />
+              {cartCount > 0 && <span className="badge-count">{cartCount}</span>}
+            </button>
+          )}
 
           {/* User Auth Section */}
           {currentUser ? (
