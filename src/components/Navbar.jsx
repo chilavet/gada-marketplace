@@ -16,12 +16,6 @@ export default function Navbar({
 }) {
   const [showUserDropdown, setShowUserDropdown] = useState(false);
 
-  // Dynamic mobile store detection
-  const isAppleDevice = typeof navigator !== 'undefined' && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent) && !/Android/.test(navigator.userAgent);
-  const smartStoreUrl = isAppleDevice
-    ? 'https://apps.apple.com/us/app/gada-customer/id6578457399'
-    : 'https://play.google.com/store/apps/details?id=com.gadaclient&pcampaignid=web_share';
-
   return (
     <header className="navbar">
       <div className="navbar-content">
@@ -271,33 +265,6 @@ export default function Navbar({
             </div>
           ) : (
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-              <a
-                href={smartStoreUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                title={isAppleDevice ? "Download Gada Customer App on Apple App Store" : "Download Gada App on Google Play Store"}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '6px',
-                  padding: '7px 14px',
-                  borderRadius: '20px',
-                  background: '#F1F5F9',
-                  border: '1px solid #E2E8F0',
-                  color: '#0F172A',
-                  fontSize: '12px',
-                  fontWeight: '700',
-                  textDecoration: 'none',
-                  transition: 'background 0.2s',
-                  whiteSpace: 'nowrap'
-                }}
-                onMouseEnter={(e) => e.currentTarget.style.background = '#E2E8F0'}
-                onMouseLeave={(e) => e.currentTarget.style.background = '#F1F5F9'}
-              >
-                <Smartphone size={14} color={isAppleDevice ? "#0B4FD8" : "#059669"} />
-                <span>Get App</span>
-              </a>
-
               <button
                 onClick={() => onOpenAuth('login')}
                 className="primary-btn"
