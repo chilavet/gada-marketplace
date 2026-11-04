@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ShoppingBag, MapPin, User, LogOut, Package, Wallet, ChevronDown, Sparkles, LogIn, Smartphone } from 'lucide-react';
+import { ShoppingBag, MapPin, User, LogOut, Package, Wallet, ChevronDown, Sparkles, LogIn } from 'lucide-react';
 
 export default function Navbar({
   activeTab,
@@ -186,54 +186,6 @@ export default function Navbar({
                   >
                     <Package size={15} color="#3B82F6" /> Orders & Delivery History
                   </button>
-
-                  <a
-                    href="https://apps.apple.com/us/app/gada-customer/id6578457399"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{
-                      width: '100%',
-                      padding: '8px 12px',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '8px',
-                      borderRadius: '8px',
-                      fontSize: '13px',
-                      fontWeight: '600',
-                      color: '#0B4FD8',
-                      textAlign: 'left',
-                      textDecoration: 'none',
-                      boxSizing: 'border-box'
-                    }}
-                    onMouseEnter={(e) => e.currentTarget.style.background = '#EFF6FF'}
-                    onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
-                  >
-                    <Smartphone size={15} color="#0B4FD8" /> App Store (iOS)
-                  </a>
-
-                  <a
-                    href="https://play.google.com/store/apps/details?id=com.gadaclient&pcampaignid=web_share"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{
-                      width: '100%',
-                      padding: '8px 12px',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '8px',
-                      borderRadius: '8px',
-                      fontSize: '13px',
-                      fontWeight: '600',
-                      color: '#059669',
-                      textAlign: 'left',
-                      textDecoration: 'none',
-                      boxSizing: 'border-box'
-                    }}
-                    onMouseEnter={(e) => e.currentTarget.style.background = '#ECFDF5'}
-                    onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
-                  >
-                    <Smartphone size={15} color="#059669" /> Google Play (Android)
-                  </a>
 
                   <div style={{ height: '1px', background: '#F1F5F9', margin: '4px 0' }} />
 
