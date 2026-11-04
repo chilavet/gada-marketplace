@@ -19,41 +19,43 @@ export default function Navbar({
   return (
     <header className="navbar">
       <div className="navbar-content">
-        {/* Brand Logo */}
-        <div className="brand-logo" onClick={() => setActiveTab('home')} style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}>
-          <img
-            src="/gada-marketplace-logo-transparent.png"
-            alt="Gada Marketplace"
-            style={{
-              height: '38px',
-              objectFit: 'contain'
-            }}
-          />
-        </div>
+        {/* Brand Logo & Location Tag (grouped on the left side) */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+          <div className="brand-logo" onClick={() => setActiveTab('home')} style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}>
+            <img
+              src="/gada-marketplace-logo-transparent.png"
+              alt="Gada Marketplace"
+              style={{
+                height: '38px',
+                objectFit: 'contain'
+              }}
+            />
+          </div>
 
-        {/* Location Picker */}
-        <div
-          className="location-picker"
-          onClick={onOpenLocationModal}
-          title="Click to view Google Map and change delivery location"
-          style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}
-        >
-          <MapPin size={16} color={currentLocation?.isGPS ? '#16A34A' : '#0B4FD8'} />
-          <span style={{ fontWeight: '700', color: '#0F172A', maxWidth: '170px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-            {currentLocation?.isGPS ? (currentLocation?.shortName || currentLocation?.name) : (currentLocation?.name || 'Locating Area...')}
-          </span>
-          <span
-            style={{
-              fontSize: '10px',
-              background: currentLocation?.isGPS ? '#DCFCE7' : '#EFF6FF',
-              color: currentLocation?.isGPS ? '#15803D' : '#0B4FD8',
-              padding: '2px 8px',
-              borderRadius: '12px',
-              fontWeight: '800'
-            }}
+          {/* Location Picker */}
+          <div
+            className="location-picker"
+            onClick={onOpenLocationModal}
+            title="Click to view Google Map and change delivery location"
+            style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}
           >
-            {currentLocation?.isGPS ? 'Live GPS' : 'Location'}
-          </span>
+            <MapPin size={16} color={currentLocation?.isGPS ? '#16A34A' : '#0B4FD8'} />
+            <span style={{ fontWeight: '700', color: '#0F172A', maxWidth: '170px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+              {currentLocation?.isGPS ? (currentLocation?.shortName || currentLocation?.name) : (currentLocation?.name || 'Locating Area...')}
+            </span>
+            <span
+              style={{
+                fontSize: '10px',
+                background: currentLocation?.isGPS ? '#DCFCE7' : '#EFF6FF',
+                color: currentLocation?.isGPS ? '#15803D' : '#0B4FD8',
+                padding: '2px 8px',
+                borderRadius: '12px',
+                fontWeight: '800'
+              }}
+            >
+              {currentLocation?.isGPS ? 'Google Maps' : 'Change'}
+            </span>
+          </div>
         </div>
 
         {/* Search Bar (visible when authenticated; brought down to categories preview on landing page) */}
