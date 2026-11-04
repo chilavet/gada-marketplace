@@ -246,6 +246,8 @@ export default function App() {
         !currentUser ? (
           <ItemGroupsLanding
             currentLocation={currentLocation}
+            searchQuery={searchQuery}
+            setSearchQuery={setSearchQuery}
             onOpenAuth={handleOpenAuth}
             onOpenLocationModal={() => setIsLocationModalOpen(true)}
             onOpenPartnerRegistration={handleOpenPartner}

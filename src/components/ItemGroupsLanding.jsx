@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Lock, ArrowRight } from 'lucide-react';
+import { Lock, ArrowRight, Search, X, Sparkles } from 'lucide-react';
 import TestimonialsShowcase from './testimonials/TestimonialsShowcase';
 
 const ITEM_GROUPS = [
@@ -58,9 +58,27 @@ export default function ItemGroupsLanding({
   currentLocation,
   onOpenLocationModal,
   onSelectGroup,
-  onOpenPartnerRegistration
+  onOpenPartnerRegistration,
+  searchQuery = '',
+  setSearchQuery
 }) {
+  const [searchInput, setSearchInput] = useState(searchQuery || '');
   const [hoveredCard, setHoveredCard] = useState(null);
+
+  const handleSearchTrigger = (customTerm) => {
+    const term = typeof customTerm === 'string' ? customTerm : searchInput;
+    if (setSearchQuery) {
+      setSearchQuery(term);
+    }
+    if (onOpenAuth) {
+      onOpenAuth(
+        'register',
+        term.trim()
+          ? `Sign up with Google or Email to search for "${term.trim()}" and order from local merchants! 🚀`
+          : 'Sign up with Google or Email to search items, compare hub prices, and order! 🚀'
+      );
+    }
+  };
 
   const handleGroupClick = (group) => {
     if (onSelectGroup) {
@@ -73,7 +91,129 @@ export default function ItemGroupsLanding({
   return (
     <div style={{ width: '100%', minHeight: '100vh', background: '#F8FAFC' }}>
       {/* GROUPS / TYPES OF ITEMS SECTION */}
-      <section style={{ maxWidth: '1240px', margin: '0 auto', padding: '48px 24px 60px' }}>
+      <section style={{ maxWidth: '1240px', margin: '0 auto', padding: '40px 24px 60px' }}>
+        {/* HERO SEARCH BAR ON TOP OF CATEGORIES PREVIEW */}
+        <div style={{ maxWidth: '780px', margin: '0 auto 40px' }}>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleSearchTrigger();
+            }}
+            style={{
+              position: 'relative',
+              display: 'flex',
+              alignItems: 'center',
+              boxShadow: '0 12px 36px rgba(15, 23, 42, 0.08), 0 2px 6px rgba(15, 23, 42, 0.04)',
+              borderRadius: '9999px',
+              background: '#FFFFFF',
+              border: '2px solid #E2E8F0',
+              padding: '6px 8px 6px 20px',
+              transition: 'border-color 0.2s, box-shadow 0.2s'
+            }}
+          >
+            <Search size={22} color="#FF6B00" style={{ flexShrink: 0, marginRight: '12px' }} />
+            <input
+              type="text"
+              value={searchInput}
+              onChange={(e) => setSearchInput(e.target.value)}
+              placeholder="Search food, pharmacy, local market produce & supermarkets..."
+              style={{
+                flex: 1,
+                border: 'none',
+                outline: 'none',
+                background: 'transparent',
+                fontSize: 'clamp(14px, 2vw, 16px)',
+                fontWeight: '600',
+                color: '#0F172A',
+                minWidth: '120px'
+              }}
+            />
+            {searchInput && (
+              <button
+                type="button"
+                onClick={() => setSearchInput('')}
+                style={{
+                  background: 'transparent',
+                  border: 'none',
+                  color: '#94A3B8',
+                  cursor: 'pointer',
+                  padding: '6px 8px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  marginRight: '6px'
+                }}
+              >
+                <X size={18} />
+              </button>
+            )}
+            <button
+              type="submit"
+              style={{
+                background: 'linear-gradient(135deg, #FF6B00 0%, #FF8533 100%)',
+                color: '#FFFFFF',
+                border: 'none',
+                borderRadius: '9999px',
+                padding: '12px 26px',
+                fontSize: '14px',
+                fontWeight: '800',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                boxShadow: '0 4px 14px rgba(255, 107, 0, 0.35)',
+                flexShrink: 0,
+                transition: 'transform 0.15s ease'
+              }}
+            >
+              <span>Search</span>
+              <ArrowRight size={16} />
+            </button>
+          </form>
+
+          {/* Trending Suggestions */}
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              flexWrap: 'wrap',
+              gap: '8px',
+              marginTop: '16px',
+              fontSize: '12px',
+              color: '#64748B'
+            }}
+          >
+            <span style={{ fontWeight: '800', color: '#0F172A', display: 'flex', alignItems: 'center', gap: '4px' }}>
+              <Sparkles size={14} color="#FF6B00" />
+              <span>Trending:</span>
+            </span>
+            {['Party Jollof Rice', 'Amala & Abula', 'Paracetamol', 'Fresh Tomatoes', 'Grilled Chicken', 'Bread'].map((tag) => (
+              <button
+                key={tag}
+                type="button"
+                onClick={() => {
+                  setSearchInput(tag);
+                  handleSearchTrigger(tag);
+                }}
+                style={{
+                  background: '#FFFFFF',
+                  border: '1px solid #E2E8F0',
+                  borderRadius: '9999px',
+                  padding: '4px 12px',
+                  fontSize: '12px',
+                  fontWeight: '600',
+                  color: '#334155',
+                  cursor: 'pointer',
+                  transition: 'all 0.15s ease'
+                }}
+              >
+                {tag}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Categories Preview Header */}
         <div style={{ textAlign: 'center', marginBottom: '36px' }}>
           <div
             style={{

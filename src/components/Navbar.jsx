@@ -56,31 +56,24 @@ export default function Navbar({
           </span>
         </div>
 
-        {/* Search Bar */}
-        <div className="search-bar-wrap">
-          <Search size={18} className="search-icon-inside" />
-          <input
-            type="text"
-            className="search-input"
-            placeholder={currentUser ? "Search items on display, groceries, restaurants, hubs..." : "Sign up with Google or Email to search and order..."}
-            value={searchQuery}
-            onClick={() => {
-              if (!currentUser) {
-                onOpenAuth('register', 'Sign up with Google or Email to search items and view prices.');
-              }
-            }}
-            onChange={(e) => {
-              if (!currentUser) {
-                onOpenAuth('register', 'Sign up with Google or Email to search items and view prices.');
-                return;
-              }
-              setSearchQuery(e.target.value);
-              if (activeTab !== 'search' && e.target.value.trim() !== '') {
-                setActiveTab('search');
-              }
-            }}
-          />
-        </div>
+        {/* Search Bar (visible when authenticated; brought down to categories preview on landing page) */}
+        {currentUser && (
+          <div className="search-bar-wrap">
+            <Search size={18} className="search-icon-inside" />
+            <input
+              type="text"
+              className="search-input"
+              placeholder="Search items on display, groceries, restaurants, hubs..."
+              value={searchQuery}
+              onChange={(e) => {
+                setSearchQuery(e.target.value);
+                if (activeTab !== 'search' && e.target.value.trim() !== '') {
+                  setActiveTab('search');
+                }
+              }}
+            />
+          </div>
+        )}
 
         {/* Nav Actions */}
         <div className="nav-actions" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
