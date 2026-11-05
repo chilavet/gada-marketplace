@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Lock, ArrowRight, Search, X, Sparkles, Smartphone } from 'lucide-react';
+import { Lock, ArrowRight, Search, X, Sparkles } from 'lucide-react';
 import TestimonialsShowcase from './testimonials/TestimonialsShowcase';
 
 const ITEM_GROUPS = [
@@ -444,118 +444,6 @@ export default function ItemGroupsLanding({
         onOpenAuth={onOpenAuth}
         onOpenPartnerRegistration={onOpenPartnerRegistration}
       />
-
-      {/* DOWNLOAD GADA APP CALLOUT */}
-      <section style={{ maxWidth: '1240px', margin: '0 auto', padding: '0 24px 64px' }}>
-        <div
-          style={{
-            background: 'linear-gradient(135deg, #0B192C 0%, #1E293B 100%)',
-            borderRadius: '24px',
-            padding: '40px 36px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            flexWrap: 'wrap',
-            gap: '24px',
-            boxShadow: '0 20px 40px rgba(0,0,0,0.12)',
-            border: '1px solid #334155'
-          }}
-        >
-          <div style={{ maxWidth: '620px' }}>
-            <div
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '8px',
-                padding: '4px 12px',
-                borderRadius: '9999px',
-                background: 'rgba(5, 150, 105, 0.2)',
-                border: '1px solid rgba(5, 150, 105, 0.4)',
-                color: '#34D399',
-                fontSize: '11px',
-                fontWeight: '800',
-                textTransform: 'uppercase',
-                letterSpacing: '0.5px',
-                marginBottom: '12px'
-              }}
-            >
-              <Smartphone size={13} />
-              <span>Now Available On iOS & Android</span>
-            </div>
-            <h3 style={{ fontSize: 'clamp(22px, 3vw, 28px)', fontWeight: '900', color: '#FFF', margin: '0 0 10px 0', lineHeight: 1.25 }}>
-              Shop, Order & Track Faster With the Gada App
-            </h3>
-            <p style={{ fontSize: '14px', color: '#94A3B8', margin: 0, lineHeight: 1.6 }}>
-              Get instant dispatch alerts, real-time courier speedometer tracking, and fast checkout directly from your iPhone or Android device.
-            </p>
-          </div>
-
-          <div style={{ display: 'flex', alignItems: 'center', gap: '14px', flexWrap: 'wrap' }}>
-            {/* Google Play */}
-            <a
-              href="https://play.google.com/store/apps/details?id=com.gadaclient&pcampaignid=web_share"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '14px',
-                background: '#FFFFFF',
-                color: '#0F172A',
-                padding: '12px 22px',
-                borderRadius: '16px',
-                textDecoration: 'none',
-                fontWeight: '800',
-                boxShadow: '0 8px 24px rgba(0,0,0,0.2)',
-                transition: 'transform 0.15s ease'
-              }}
-              onMouseEnter={e => e.currentTarget.style.transform = 'translateY(-2px)'}
-              onMouseLeave={e => e.currentTarget.style.transform = 'translateY(0)'}
-            >
-              <svg width="28" height="28" viewBox="0 0 512 512" fill="none">
-                <path d="M47.2 24.2C37.5 34.6 32 50.1 32 69.8v372.4c0 19.7 5.5 35.2 15.2 45.6l2.3 2.2L258 281.5V230.5L49.5 22l-2.3 2.2z" fill="#00E676" />
-                <path d="M331.4 354.9l-73.4-73.4v-51L331.4 157l3.8 2.2 87.2 49.5c24.9 14.1 24.9 37.3 0 51.5l-87.2 49.5-3.8 5.2z" fill="#FFD600" />
-                <path d="M258 281.5L49.5 490c13.7 14.6 36.3 16.3 62.4 1.5l219.5-124.6-73.4-85.4z" fill="#FF3D00" />
-                <path d="M258 230.5l73.4-85.4L111.9 20.5C85.8 5.7 63.2 7.4 49.5 22L258 230.5z" fill="#00B0FF" />
-              </svg>
-              <div style={{ textAlign: 'left' }}>
-                <div style={{ fontSize: '10px', textTransform: 'uppercase', color: '#64748B', fontWeight: '700' }}>GET IT ON</div>
-                <div style={{ fontSize: '15px', fontWeight: '900', lineHeight: 1.1 }}>Google Play</div>
-              </div>
-            </a>
-
-            {/* Apple App Store */}
-            <a
-              href="https://apps.apple.com/us/app/gada-customer/id6578457399"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '14px',
-                background: '#FFFFFF',
-                color: '#0F172A',
-                padding: '12px 22px',
-                borderRadius: '16px',
-                textDecoration: 'none',
-                fontWeight: '800',
-                boxShadow: '0 8px 24px rgba(0,0,0,0.2)',
-                transition: 'transform 0.15s ease'
-              }}
-              onMouseEnter={e => e.currentTarget.style.transform = 'translateY(-2px)'}
-              onMouseLeave={e => e.currentTarget.style.transform = 'translateY(0)'}
-            >
-              <svg width="28" height="28" viewBox="0 0 170 170" fill="currentColor">
-                <path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.19-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.75 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.35.13-9.16-1.9-14.42-6.08-3.69-3.04-7.67-7.81-11.96-14.34-6.3-9.59-11.28-20.73-14.93-33.42-3.66-12.7-5.49-24.81-5.49-36.33 0-14.36 3.65-26.24 10.96-35.65 7.31-9.41 16.56-14.19 27.75-14.35 5.37 0 11.22 1.45 17.54 4.36 6.32 2.91 10.27 4.37 11.85 4.37 1.34 0 5.46-1.48 12.35-4.44 6.89-2.97 12.59-4.27 17.1-3.92 12.65.65 22.84 5.36 30.56 14.15-11.05 6.74-16.45 16.03-16.2 27.86.25 9.25 3.78 17.16 10.59 23.74 6.81 6.58 14.99 10.36 24.54 11.35-2.22 6.54-4.88 13.06-7.98 19.57zM119.22 31.84c0-7.39 2.68-14.36 8.04-20.91 5.36-6.55 12.01-10.53 19.95-11.93.44 1.3.66 2.5.66 3.6 0 7.39-2.73 14.44-8.19 21.14-5.46 6.7-12.27 10.63-20.46 11.78z" />
-              </svg>
-              <div style={{ textAlign: 'left' }}>
-                <div style={{ fontSize: '10px', textTransform: 'uppercase', color: '#64748B', fontWeight: '700' }}>Download on the</div>
-                <div style={{ fontSize: '15px', fontWeight: '900', lineHeight: 1.1 }}>App Store</div>
-              </div>
-            </a>
-          </div>
-        </div>
-      </section>
     </div>
   );
 }
